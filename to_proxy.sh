@@ -1,4 +1,8 @@
 #!/bin/bash
+
+
+# Ver http://patrick-nagel.net/scripts/kproxyswitch/kproxyswitch.sh
+
 #CONFIGURACION
 TO_PROXY="proxy"
 TO_NO_PROXY=""
@@ -42,7 +46,6 @@ then
   copy $KDE_PROXY $KDE
   copy $YAST_PROXY $YAST
   #copy $HAMACHI_SETTINGS_PROXY $HAMACHI_SETTINGS
-  
 fi
 if [[ $1 == $TO_NO_PROXY ]] 
 then
@@ -56,6 +59,9 @@ then
   copy $YAST_NO_PROXY $YAST
   #copy $HAMACHI_SETTINGS_NO_PROXY $HAMACHI_SETTINGS
 fi
+echo "Notificando..."
+dbus-send --type=signal /KIO/Scheduler org.kde.KIO.Scheduler.reparseSlaveConfiguration string:""
+
 echo "-------------------------------"
 echo "---------FINALIZANDO-----------"
 echo "-------------------------------"
