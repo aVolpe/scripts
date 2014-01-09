@@ -1,0 +1,11 @@
+echo User: $1
+echo Pass: $2
+
+export FTP_PROXY=http://$1:$2@10.1.5.245:9191
+export HTTPS_PROXY=http://$1:$2@10.1.5.245:9191
+export HTTP_PROXY=http://$1:$2@10.1.5.245:9191
+export NO_PROXY='localhost, 127.0.0.1,.una.py'
+export ftp_proxy=http://$1:$2@10.1.5.245:9191
+export http_proxy=$1:$2@10.1.5.245:9191
+export https_proxy=$1:$2@10.1.5.245:9191
+export no_proxy='localhost, 127.0.0.1,.una.py'
