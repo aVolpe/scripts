@@ -10,7 +10,7 @@ require 'fileutils'
 
 
 
-$HOME_DIRECTORY = Array["/home/arturo/develop/servidores/jboss-as-7.1.1.Final/standalone/deployments","/home/arturo/develop/servidores/cadep/standalone/deployments"]
+$HOME_DIRECTORY = Array["~/develop/servidores/jboss-as-7.1.1.Final/standalone/deployments","~/develop/servidores/cadep/standalone/deployments"]
 $INTACTOS = Array["pos"]
 
 $JBOSS_PROCESS_ID = `ps -eF | grep jboss | grep server | tr -s " " | cut -d " " -f2`

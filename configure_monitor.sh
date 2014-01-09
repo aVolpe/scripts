@@ -17,6 +17,7 @@
 # Recursos
 # Manipulacion de cadenas http://tldp.org/LDP/abs/html/string-manipulation.html
 
+echo "Usage: configure_monitor.sh SINGLE|DUAL VGAN RESXxRESy IZQ|DER"
 DUAL="dual"
 SINGLE="single"
 POS=$4

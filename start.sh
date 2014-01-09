@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #sleep 5
-#conky -c /home/arturo/.conky/V2/conkyrc &
+#conky -c ~/.conky/V2/conkyrc &
 
 day=`date +%a`
 hour=`date +%H`
@@ -12,12 +12,12 @@ rm ~/.last_login
 
 function home() {
     echo "Home";
-    sh /home/arturo/scripts/home.sh > ~/.last_login;
+    sh ~/scripts/home.sh > ~/.last_login;
 }
 
 function place1() {
     echo "Facultad";
-    sh /home/arturo/scripts/facu.sh > ~/.last_login;
+    sh ~/scripts/facu.sh > ~/.last_login;
 }
 
 function not_weekend () {

@@ -7,9 +7,9 @@
 TO_PROXY="proxy"
 TO_NO_PROXY=""
 #MAVEN
-MAVEN_SETTING_PROXY="/home/arturo/.m2/settings.xml_proxy"
-MAVEN_SETTING_NO_PROXY="/home/arturo/.m2/settings.xml_no_proxy "
-MAVEN_SETTING="/home/arturo/.m2/settings.xml "
+MAVEN_SETTING_PROXY="~/.m2/settings.xml_proxy"
+MAVEN_SETTING_NO_PROXY="~/.m2/settings.xml_no_proxy "
+MAVEN_SETTING="~/.m2/settings.xml "
 #Enviroment (no se por qu eno esta configurado)
 ENVIROMENT_SETTINGS="/etc/environment"
 ENVIROMENT_SETTINGS_PROXY="/etc/environment_proxy"
@@ -21,9 +21,9 @@ HAMACHI_SETTINGS_PROXY="/var/lib/logmein-hamachi/h2-engine-override.cfg_proxy"
 
 
 #KDE PROXY
-KDE="/home/arturo/.kde4/share/config/kioslaverc"
-KDE_NO_PROXY="/home/arturo/.kde4/share/config/kioslaverc.no_proxy"
-KDE_PROXY="/home/arturo/.kde4/share/config/kioslaverc.proxy"
+KDE="~/.kde4/share/config/kioslaverc"
+KDE_NO_PROXY="~/.kde4/share/config/kioslaverc.no_proxy"
+KDE_PROXY="~/.kde4/share/config/kioslaverc.proxy"
 
 
 #SUSE PROXY
@@ -42,7 +42,7 @@ then
   echo "-------------------------------"
   copy $MAVEN_SETTING_PROXY $MAVEN_SETTING
   #echo "Copiando configuracion de proxy de entorno"
-  #sudo cp $ENVIROMENT_SETTINGS_PROXY $ENVIROMENT_SETTINGS
+  copy $ENVIROMENT_SETTINGS_PROXY $ENVIROMENT_SETTINGS
   copy $KDE_PROXY $KDE
   copy $YAST_PROXY $YAST
   #copy $HAMACHI_SETTINGS_PROXY $HAMACHI_SETTINGS
@@ -54,7 +54,7 @@ then
   echo "-------------------------------"
   copy $MAVEN_SETTING_NO_PROXY $MAVEN_SETTING
   #echo "Copiando configuracion de proxy de entorno"
-  #sudo cp $ENVIROMENT_SETTINGS_NO_PROXY $ENVIROMENT_SETTINGS
+  copy $ENVIROMENT_SETTINGS_NO_PROXY $ENVIROMENT_SETTINGS
   copy $KDE_NO_PROXY $KDE
   copy $YAST_NO_PROXY $YAST
   #copy $HAMACHI_SETTINGS_NO_PROXY $HAMACHI_SETTINGS
