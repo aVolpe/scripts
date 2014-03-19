@@ -3,8 +3,10 @@
 
 impact = Hash.new(0)
 
-$FOLDERS = Array["conf", "idp", "saf", "sas", "sigh", "soc", "conf/base" ]
-$BASE_DIR = "/home/arturo/develop/facultad/stable"
+#$FOLDERS = Array["conf", "idp", "saf", "sas", "sigh", "soc", "conf/base" ]
+$FOLDERS = Array["metaconfiguracion", "metapersona", "metafarmacia", "metastock", "metaasistencial", "metasocial", "metastock/base", "metasec", "sigh" ]
+#$BASE_DIR = "/home/arturo/develop/facultad/stable"
+$BASE_DIR = Dir.pwd
 total = 0;
 totalS = "Total"
 char_per_line = 51

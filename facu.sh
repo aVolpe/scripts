@@ -15,8 +15,10 @@ nohup ~/IDE/eclipse/eclipse & > /dev/null
 echo Iniciando chrome
 nohup google-chrome 'http://www.gmail.com/' &
 nohup google-chrome 'http://www.stackoverflow.com/' &
-nohup google-chrome 'http://cia.pol.una.py/mantis/my_view_page.php' &
-echo Iniciando kopete
-cp ~/.kde4/share/config/kopeterc_withavolpe ~/.kde4/share/config/kopeterc
-proxychains4 kopete
+#echo Iniciando kopete
+#cp ~/.kde4/share/config/kopeterc_withavolpe ~/.kde4/share/config/kopeterc
+#proxychains4 kopete
+pidgin &
+#sudo service postgresql start
 
+yakuake-session -t 'WIKI' -q -e vim ~/etc/Dropbox/wiki/index.wiki

@@ -7,9 +7,9 @@
 TO_PROXY="proxy"
 TO_NO_PROXY=""
 #MAVEN
-MAVEN_SETTING_PROXY="~/.m2/settings.xml_proxy"
-MAVEN_SETTING_NO_PROXY="~/.m2/settings.xml_no_proxy "
-MAVEN_SETTING="~/.m2/settings.xml "
+MAVEN_SETTING_PROXY="/home/avolpe//.m2/settings.xml_proxy"
+MAVEN_SETTING_NO_PROXY="/home/avolpe//.m2/settings.xml_no_proxy "
+MAVEN_SETTING="/home/avolpe//.m2/settings.xml "
 #Enviroment (no se por qu eno esta configurado)
 ENVIROMENT_SETTINGS="/etc/environment"
 ENVIROMENT_SETTINGS_PROXY="/etc/environment_proxy"
@@ -18,12 +18,15 @@ ENVIROMENT_SETTINGS_NO_PROXY="/etc/environment_no_proxy"
 HAMACHI_SETTINGS="/var/lib/logmein-hamachi/h2-engine-override.cfg"
 HAMACHI_SETTINGS_NO_PROXY="/var/lib/logmein-hamachi/h2-engine-override.cfg_no_proxy"
 HAMACHI_SETTINGS_PROXY="/var/lib/logmein-hamachi/h2-engine-override.cfg_proxy"
-
+#PIDGIN
+PIDGIN="/home/avolpe/.purple/accounts.xml"
+PIDGIN_PROXY="/home/avolpe/.purple/accounts.xml_proxy"
+PIDGIN_NO_PROXY="/home/avolpe/.purple/accounts.xml_no_proxy"
 
 #KDE PROXY
-KDE="~/.kde4/share/config/kioslaverc"
-KDE_NO_PROXY="~/.kde4/share/config/kioslaverc.no_proxy"
-KDE_PROXY="~/.kde4/share/config/kioslaverc.proxy"
+KDE="/home/avolpe//.kde4/share/config/kioslaverc"
+KDE_NO_PROXY="/home/avolpe//.kde4/share/config/kioslaverc.no_proxy"
+KDE_PROXY="/home/avolpe//.kde4/share/config/kioslaverc.proxy"
 
 
 #SUSE PROXY
@@ -45,6 +48,7 @@ then
   copy $ENVIROMENT_SETTINGS_PROXY $ENVIROMENT_SETTINGS
   copy $KDE_PROXY $KDE
   copy $YAST_PROXY $YAST
+  copy $PIDGIN_PROXY $PIDGIN
   #copy $HAMACHI_SETTINGS_PROXY $HAMACHI_SETTINGS
 fi
 if [[ $1 == $TO_NO_PROXY ]] 
@@ -57,10 +61,11 @@ then
   copy $ENVIROMENT_SETTINGS_NO_PROXY $ENVIROMENT_SETTINGS
   copy $KDE_NO_PROXY $KDE
   copy $YAST_NO_PROXY $YAST
+  copy $PIDGIN_NO_PROXY $PIDGIN
   #copy $HAMACHI_SETTINGS_NO_PROXY $HAMACHI_SETTINGS
 fi
 echo "Notificando..."
-dbus-send --type=signal /KIO/Scheduler org.kde.KIO.Scheduler.reparseSlaveConfiguration string:""
+#dbus-send --type=signal /KIO/Scheduler org.kde.KIO.Scheduler.reparseSlaveConfiguration string:""
 
 echo "-------------------------------"
 echo "---------FINALIZANDO-----------"

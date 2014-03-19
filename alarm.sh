@@ -11,15 +11,17 @@ else
                         RET=$(kdialog --radiolist "$2" 0 "Desactivar" 	off 	\
 				  1 "1 minuto" 		on	\
 				  5 "5 minutos" 	off	\
+				  10 "10 minutos" 	off	\
 				  15 "15 minutos"	off	\
 				  60 "1 Hora"		off)
-			echo $RET
-			SLEEP=$RET"m"
-			
-			if [[ $SLEEP == "0m" ]]
+			if [[ $RET == "0" ]]
 			then 
+				echo "Terminando alarma $2"
 				exit 0
 			fi
+			echo -e "Durmiendo $RET minutos"
+			SLEEP=$RET"m"
+			
 			kdialog --title "$2" --passivepopup  "Sleep for $SLEEP" 10
 			sleep $SLEEP
 			
