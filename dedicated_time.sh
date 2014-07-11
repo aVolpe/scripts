@@ -9,6 +9,4 @@ while [ -z "$COMMENT" ]; do
    COMMENT=`kdialog --title "Comentario" --inputbox "Descripción del trabajo realizaro" "Impactación de parche"`
 done
 
-if [ -z "$ISSUE" ]; do
-    python /home/avolpe/programs/grtk/spent.py -i $ISSUE -t $TIEMPO -c "$COMMENT"
-done
+python /home/avolpe/programs/grtk/spent.py -i $ISSUE -t $TIEMPO -c "$COMMENT"

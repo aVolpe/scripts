@@ -8,7 +8,8 @@ echo "WITHOUT PROXY" > ~/.proxy_status
 echo "Cambiar a modo proxy"
 . ~/scripts/to_proxy.sh
 echo "Configurar monitores"
-. ~/scripts/configure_monitor.sh 
+sh scripts/configure_monitor.sh DUAL VGA1 1920x1080 DER
+sh scripts/configure_monitor.sh DUAL VGA2 1920x1080 DER
 echo "Limpiar jboss"
 ruby ~/scripts/limpiar_standalone.rb
 echo Iniciando chrome
