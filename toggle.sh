@@ -14,14 +14,11 @@ if test "$wid" = "" ; then
 fi
 
 current=`xdotool getactivewindow`
-if test $wid = $current ; then
-	comm="windowminimize"
-else
-	comm="windowactivate"
-fi
-
 for id in $wid
 do
-	xdotool "$comm" "$id"
+	if test $id = $current ; then
+		xdotool windowminimize "$id"
+	else
+		xdotool windowactivate "$id"
+	fi
 done
-
