@@ -8,7 +8,7 @@ echo "Cambiar a modo proxy"
 . ~/scripts/to_proxy.sh proxy &
 echo "Configurar monitores"
 . ~/scripts/configure_monitor.sh dual VGA1 1680x1050 IZQ
-. ~/scripts/configure_monitor.sh dual VGA2 1680x1050 IZQ
+#. ~/scripts/configure_monitor.sh dual VGA2 1680x1050 IZQ
 
 echo "Limpiar jboss"
 ruby ~/scripts/limpiar_standalone.rb
