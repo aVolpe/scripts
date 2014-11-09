@@ -1,0 +1,82 @@
+
+fu! SumFunc() range
+     let old = @a
+     normal gv"ay
+     let sel=@a
+     let @a=old
+     let t:r=0
+     try
+		exe 'let t:r = ' . join(split(sel,'\n'), '+')
+		" call append(a:lastline, printf("Sum: %.02f", res))
+     catch
+              return -1
+     endtry
+     echo t:r 
+     let @" = t:r
+     return 0
+endfu
+
+
+
+vnoremap <F3> :call SumFunc()<CR>
+""noremap <F4> :VimwikiToggleListItem<CR>
+noremap <F5> :PreviewMarkdown<CR>
+nnoremap K i<CR><Esc>
+
+noremap <c-F5> ]s
+noremap <c-F6> z=
+
+set history=10000
+set mouse=
+set shiftwidth=8                " Use indents of 4 spaces
+set noexpandtab                   " Tabs are spaces, not tabs
+set tabstop=8                   " An indentation every four columns
+set nolist
+set nopaste
+""set softtabstop=4               " Let backspace delete indent
+
+augroup myvimrchooks
+    au!
+    autocmd bufwritepost .vimrc source ~/.vimrc
+augroup END
+
+
+set nopaste
+""%map \ <Plug>(easymotion-prefix)
+""nmap \s <Plug>(easymotion-s2)
+""nmap \t <Plug>(easymotion-t2)
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
+let g:indent_guides_enable_on_vim_startup = 0
+let g:PreviewBrowsers = "xdg-open"
+
+au BufRead,BufNewFile *.md set filetype=markdown
+au BufRead,BufNewFile *.tex set filetype=tex
+au BufNewFile,BufRead *.cs set foldmethod=syntax
+au FileType markdown set wrap
+au FileType markdown set textwidth=80
+au FileType gitcommit set fileencoding=utf8
+au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
+
+let g:LatexBox_latexmk_preview_continuously=1
+let g:LatexBox_latexmk_async=1
+let g:LatexBox_latexmk_options = "-pvc -pdf -dvi-"
+
+"Para que se pueda insertar la letra é, que es igual a <m-i>"
+"autocmd FileType tex iunmap <buffer> <M-i>
+"autocmd FileType tex iunmap <buffer> <leader> <M-i>
+
+set fileencodings=ucs-bom,utf8,prc
+set spelllang=es,en
+
+imap jj <Esc>
+imap jw <Esc>:w<CR>a
+
+nmap <Space> za
+
+colorscheme hybrid
+hi clear SpellBad
+hi SpellBad cterm=underline,bold
+

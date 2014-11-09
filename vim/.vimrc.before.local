@@ -1,0 +1,37 @@
+
+let g:airline_section_b = '%{strftime("%c")}'
+let g:indent_guides_enable_on_vim_startup = 0
+""let g:vimwiki_table_auto_fmt = 1
+let g:tagbar_ctags_bin='/usr/bin/ctags'
+
+let wikiroot = '~/etc/Dropbox/'
+let wiki = {}
+let wiki.path = wikiroot . '/wiki/'
+let wiki.path_html = wikiroot . '/wiki_html/'
+let wiki.auto_export = 1
+let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
+let wiki.template_path = wiki.path  . '/template/'
+let wiki.template_default = 'default'
+let wiki.template_ext = '.htm'
+
+let g:vimwiki_list = [ wiki ]
+let g:vimwiki_rxTableSep = '|'
+
+autocmd FileType zsh setlocal syntax=shell
+autocmd FileType tex set wrap
+autocmd FileType tex set textwidth=80
+"Hay que remapear <M-i> a toda costa, por que <M-i>=é
+"Por defecto para archivos latex, apunta a <Plug>Tex_insertitemonthisline
+"
+autocmd FileType tex imap <buffer> <C-i> <Plug>Tex_InsertItemOnThisLine 
+autocmd FileType tex map \gq ?^$\\|^\s*\(\\begin\\|\\end\\|\\label\)?1<CR>gq//-1<CR>
+""autocmd FileType tex unmap <buffer> <leader>it
+
+
+
+nnoremap <F8> "=strftime("%H:%M")<CR>P
+inoremap <F8> <C-R>=strftime("%H:%M")<CR>
+
+
+let g:voom_return_key = '<S-F3>' 
+let g:voom_tab_key = '<S-F4>' 
