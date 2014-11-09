@@ -10,51 +10,71 @@
 
 # Parámetros
 # $1 = SINGLE o DUAL (por defecto DUAL)
-# $2 = Nombre de la VGA (por defecto VGA1)
-# $3 = Resolucion de la VGA $2, por defecto 1920x1080
-# $4 = Si se pasa IZQ, $2 estará a la izquierda, DER a la derecha, por defecto es IZQ
+# $2 = Si se pasa IZQ, $2 estará a la izquierda, DER a la derecha, por defecto es IZQ
+# $3 = Nombre de la VGA (por defecto VGA conectada)
+# $4 = Resolucion de la VGA $2, por defecto máxima resolución del a VGA
 
 # Recursos
 # Manipulacion de cadenas http://tldp.org/LDP/abs/html/string-manipulation.html
 
 echo "Usage: configure_monitor.sh SINGLE|DUAL VGAN RESXxRESy IZQ|DER"
+
 DUAL="dual"
 SINGLE="single"
-POS=$4
-VGA=$2
-RES=$3
-if [[ $3 == "" ]]
+
+PLACE=$1
+POS=$2
+VGA=$3
+RES=$4
+
+if [[ $1 == "" ]] 
 then
-  RES="1920x1080"
+  PLACE=$DUAL
 fi
-if [[ $2 == "" ]] 
-then
-  VGA="VGA1"
-fi
-if [[ $4 == "" ]]
+
+if [[ $2 == "" ]]
 then 
   POS="IZQ"
 fi
 
-#Configuracion del la posicion
-echo "$RES"
-X=${RES%x*}
-Y=${RES#*x}
-echo "Configurando para" $1
-echo $VGA
-
-#Proceso de invertir utilizando el OFFSET, siempre el monitor quye se conecta es el principal
-offset="1366x0"
-if [[ "$POS" == "IZQ" ]]
+if [[ $3 == "" ]] 
 then
-	echo Offset es $X
-	offset="-${X}x0"
+  VGA=`xrandr | grep "VGA[0-9]" | cut -d " " -f1`
+fi
+
+if [[ $4 == "" ]]
+then
+  RES=`xrandr | grep "$VGA" -A 1 | tail -n 1 | tr -s " " | cut -d " " -f2`
 fi
 
 
-if [[ $1 != $SINGLE ]] 
+#Configuracion del la posicion
+
+X=${RES%x*}
+Y=${RES#*x}
+
+
+#Proceso de invertir utilizando el OFFSET, siempre el monitor que se conecta es el principal
+OFFSET="$Xx0"
+if [[ "$POS" == "IZQ" ]]
 then
-	xrandr --output LVDS1 --mode 1366x768 --pos 0x0 --auto --output $VGA --mode $RES --pos "$offset" --primary --auto
+	OFFSET="-${X}x0"
+fi
+
+echo
+echo "#####################"
+echo "Display: $VGA"
+echo "Resolución: $RES"
+echo "Tipo: " $PLACE
+echo "Pos: $OFFSET"
+echo "#####################"
+echo
+
+
+
+if [[ $PLACE != $SINGLE ]] 
+then
+	xrandr --output LVDS1 --mode 1366x768 --pos 0x0 --auto --output $VGA --mode $RES --pos "$OFFSET" --primary --auto
 else
 	xrandr --output LVDS1 --mode 1366x768 --auto --primary
 fi
