@@ -1,0 +1,60 @@
+.fancytree-has-children span.fancytree-icon {
+	background-position: -64px -16px !important;
+}
+.fancytree-container {
+	height: 100% !important;
+	width: 100% !important;
+	background-color: transparent !important;
+}
+
+span.fancytree-title {
+	color: white !important;
+	text-decoration: none !important;
+}
+
+// CONTEXTO
+#wrapper {
+	margin-right: auto;
+	margin-left: auto;
+	width: 96%; /* Holding outermost DIV */
+}
+#header {
+	margin-right: 10px;
+	margin-left: 10px;
+	width: 97.9166667%; /* 940 divided by 960 */
+}
+#navigation ul li {
+	display: inline-block;
+	margin-right: 2.6595745%; /* 25 divided by 940 */
+}
+#navigation ul li a {
+	height: 42px;
+	line-height: 42px;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-family: Arial, "Lucida Grande", Verdana, sans-serif;
+	font-size: 27px;
+	color: black;
+}
+#content {
+	margin-top: 58px;
+	margin-right: 10px;
+	float: right;
+	width: 72.7083333%; /* 698 divided by 960 */
+}
+#sidebar {
+	border-right-color: #e8e8e8; border-right-style: solid; border-right-width: 2px; margin-top: 58px;
+	margin-right: 10px;
+	margin-left: 10px;
+	float: left;
+	width: 22.7083333%; /* 218 divided by 960 */
+	background-color: #39414A;
+}
+#footer {
+	float: left;
+	margin-top: 20px;
+	margin-right: 10px;
+	margin-left: 10px;
+	clear: both;
+	width: 97.9166667%; /* 940 divided by 960 */
+}

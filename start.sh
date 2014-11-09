@@ -22,7 +22,7 @@ function place1() {
 
 function not_weekend () {
     case $hour in
-        (0[7-9]|1[0-3])
+        (0[7-9]|1[0-5])
             place1;;
         *)
             home;;
@@ -38,4 +38,4 @@ esac
 
 #sleep 3
 #feh --bg-scale /usr/share/wallpapers/openSUSEdefault/contents/images/1920x1080.jpg
-
+xrandr --output VGA-1-2 --off
