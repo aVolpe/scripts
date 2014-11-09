@@ -13,7 +13,7 @@ echo "Configurar monitores"
 echo "Limpiar jboss"
 ruby ~/scripts/limpiar_standalone.rb
 echo Entrando a eclipse
-nohup ~/IDE/eclipse/eclipse & > /dev/null
+nohup ~/IDE/luna/eclipse/eclipse & > /dev/null
 echo Iniciando chrome
 nohup google-chrome 'http://www.gmail.com/' &
 nohup google-chrome 'http://www.stackoverflow.com/' &
@@ -24,3 +24,4 @@ pidgin &
 #sudo service postgresql start
 
 yakuake-session -t 'WIKI' -q -e vim ~/etc/Dropbox/wiki/index.wiki
+rm ~/.last_dir

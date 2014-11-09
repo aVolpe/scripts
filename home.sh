@@ -16,10 +16,11 @@ echo Iniciando chrome
 nohup google-chrome 'http://www.gmail.com/' & 
 nohup google-chrome 'http://www.stackoverflow.com/' &
 nohup google-chrome 'https://bitbucket.org/arturovolpe/tesis/commits/all' &
-echo Iniciando kopete
+#echo Iniciando kopete
 #cp /home/arturo/.kde4/share/config/kopeterc_withoutavolpe /home/arturo/.kde4/share/config/kopeterc
 #kopete &
 #pidgin &
 
-yakuake-session -t 'WIKI' -q -e vim ~/etc/vimwiki/index.wiki
-yakuake-session -t 'CenterIM' -q -e centerim5
+yakuake-session -t 'WIKI' -q -e vim ~/etc/Dropbox/wiki/index.wiki
+#yakuake-session -t 'CenterIM' -q -e centerim5
+rm ~/.last_dir
