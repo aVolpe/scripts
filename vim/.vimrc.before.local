@@ -1,15 +1,17 @@
-
+let g:spf13_bundle_groups=['general', 'writing', 'neocomplcache', 'programming', 'ruby', 'python', 'javascript', 'html', 'misc']
 let g:airline_section_b = '%{strftime("%c")}'
+let g:airline#extensions#tabline#enabled = 1
+
 let g:indent_guides_enable_on_vim_startup = 0
 ""let g:vimwiki_table_auto_fmt = 1
 let g:tagbar_ctags_bin='/usr/bin/ctags'
 
-let wikiroot = '~/etc/Dropbox/'
+let wikiroot = '~/.dropbox/Dropbox/'
 let wiki = {}
 let wiki.path = wikiroot . '/wiki/'
 let wiki.path_html = wikiroot . '/wiki_html/'
 let wiki.auto_export = 1
-let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
+let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'sql' : 'sql'}
 let wiki.template_path = wiki.path  . '/template/'
 let wiki.template_default = 'default'
 let wiki.template_ext = '.htm'

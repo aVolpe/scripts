@@ -1,4 +1,5 @@
 
+"FUNCTIONS"
 fu! SumFunc() range
      let old = @a
      normal gv"ay
@@ -16,24 +17,30 @@ fu! SumFunc() range
      return 0
 endfu
 
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+map <leader>R :call RenameFile()<cr>
 
 
 vnoremap <F3> :call SumFunc()<CR>
-""noremap <F4> :VimwikiToggleListItem<CR>
 noremap <F5> :PreviewMarkdown<CR>
 nnoremap K i<CR><Esc>
 
-noremap <c-F5> ]s
-noremap <c-F6> z=
-
 set history=10000
 set mouse=
-set shiftwidth=8                " Use indents of 4 spaces
-set noexpandtab                   " Tabs are spaces, not tabs
-set tabstop=8                   " An indentation every four columns
+set shiftwidth=4                " Use indents of 4 spaces
+set expandtab                   " Tabs are spaces, not tabs
+set tabstop=4                   " An indentation every four columns
 set nolist
 set nopaste
-""set softtabstop=4               " Let backspace delete indent
+set softtabstop=4             " Let backspace delete indent
 
 augroup myvimrchooks
     au!
@@ -42,13 +49,14 @@ augroup END
 
 
 set nopaste
-""%map \ <Plug>(easymotion-prefix)
-""nmap \s <Plug>(easymotion-s2)
-""nmap \t <Plug>(easymotion-t2)
+"%map \ <Plug>(easymotion-prefix)
+"nmap \s <Plug>(easymotion-s2)
+"nmap \t <Plug>(easymotion-t2)
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 map  n <Plug>(easymotion-next)
 map  N <Plug>(easymotion-prev)
+
 let g:indent_guides_enable_on_vim_startup = 0
 let g:PreviewBrowsers = "xdg-open"
 
@@ -60,6 +68,12 @@ au FileType markdown set textwidth=80
 au FileType gitcommit set fileencoding=utf8
 au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 
+"Java config
+"With eclim
+""let g:EclimCompletionMethod = 'omnifunc'
+let g:syntastic_java_checkers=['']
+
+
 let g:LatexBox_latexmk_preview_continuously=1
 let g:LatexBox_latexmk_async=1
 let g:LatexBox_latexmk_options = "-pvc -pdf -dvi-"
@@ -68,15 +82,60 @@ let g:LatexBox_latexmk_options = "-pvc -pdf -dvi-"
 "autocmd FileType tex iunmap <buffer> <M-i>
 "autocmd FileType tex iunmap <buffer> <leader> <M-i>
 
+""NeoCompl:
+""Utilización de camelCase
+let g:neocomplcache_enable_camel_case_completion = 1
+
 set fileencodings=ucs-bom,utf8,prc
+set spell
 set spelllang=es,en
 
 imap jj <Esc>
 imap jw <Esc>:w<CR>a
+imap jk <Esc>:w<CR>
 
-nmap <Space> za
+nmap <Space> <leader>
 
 colorscheme hybrid
+set background=dark
 hi clear SpellBad
-hi SpellBad cterm=underline,bold
+hi SpellBad cterm=underline,bold ctermfg=red
 
+"GIT options
+set diffopt+=vertical
+set scrolloff=10
+
+"Resize options
+nnoremap <silent> <Leader>eh :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>rh :exe "resize " . (winheight(0) * 2/3)<CR>
+nnoremap <silent> <Leader>ev :exe "vertical resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>rv :exe "vertical resize " . (winheight(0) * 2/3)<CR>
+
+"Ejecuta el archivo actual con ,r
+nnoremap <leader>r :!%:p<CR>
+command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
+
+"" Switch to alternate file
+map <leader>h :bnext<cr>
+map <leader>l :bprevious<cr>"
+
+"" NeoComplCache
+let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_underbar_completion = 0
+
+
+function! Noscrollbar(...)
+    ""let w:airline_section_z = '%{noscrollbar#statusline(9,'' '',''█'',[''▐''],[''▌''])}'
+    ""let w:airline_section_z = '%{noscrollbar#statusline(9,''-'',''='')}'
+    ""let w:airline_section_z = '%{noscrollbar#statusline(10,'' '',''॥'')}'
+    let w:airline_section_z = '%{noscrollbar#statusline(15,'' '',''█'',[''▐''],[''▌''])}'
+    ""let w:airline_section_z = '%{noscrollbar#statusline(9,''■'',''◫'',[''◧''],[''◨''])}'
+endfunction
+call airline#add_statusline_func('Noscrollbar')
+
+
+let g:promptline_preset = {
+        \'b'    : [ promptline#slices#cwd() ],
+        \'warn' : [ promptline#slices#last_exit_code() ],
+        \'x'    : [ promptline#slices#vcs_branch() ],
+        \'z'    : [ "$(date '+%a %d %b %r')" ]}
