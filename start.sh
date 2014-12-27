@@ -3,6 +3,8 @@
 #sleep 5
 #conky -c ~/.conky/V2/conkyrc &
 
+cd ~
+
 day=`date +%a`
 hour=`date +%H`
 #echo $day
@@ -39,3 +41,4 @@ esac
 #sleep 3
 #feh --bg-scale /usr/share/wallpapers/openSUSEdefault/contents/images/1920x1080.jpg
 xrandr --output VGA-1-2 --off
+xrandr --output VGA-1-1 --off

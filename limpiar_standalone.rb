@@ -1,3 +1,5 @@
+#!/usr/bin/ruby
+#
 # Elimina todos los archivos deployados y los archivos temporales
 # de varias instalaciones de JBOSS.
 # USO:
@@ -5,7 +7,6 @@
 #	los deploys que no se desean eliminar.
 #	ruby ~/scripts/limpiar_standalone.rb
 
-#!/usr/bin/ruby
 require 'fileutils'
 
 
@@ -13,16 +14,8 @@ require 'fileutils'
 $HOME_DIRECTORY = Array["/home/avolpe/develop/servidores/jboss-as-7.1.1.Final/standalone/deployments"]
 $INTACTOS = Array["pos"]
 
-$JBOSS_PROCESS_ID = `ps -eF | grep jboss | grep server | tr -s " " | cut -d " " -f2`
-puts $JBOSS_PROCESS_ID
-puts "::::::::::::::::"
-if ($JBOSS_PROCESS_ID != "") then
-	puts "Servidor JBOSS encontrado con ID=#{$JBOSS_PROCESS_ID}"
-	puts "Parando servidor..."
-	result=`kill -9 #{$JBOSS_PROCESS_ID}`
-	puts "Servidor parado #{result}"
-end
-
+$JBOSS_PROCESS_ID = `ps -eF | grep jboss | grep server | tr -s " " | cut -d " " -f2 | xargs kill -9`
+puts "Servidor parado"
 
 
 $HOME_DIRECTORY.each { | directory |
