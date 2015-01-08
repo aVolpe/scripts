@@ -74,9 +74,6 @@ au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 let g:syntastic_java_checkers=['']
 
 
-let g:LatexBox_latexmk_preview_continuously=1
-let g:LatexBox_latexmk_async=1
-let g:LatexBox_latexmk_options = "-pvc -pdf -dvi-"
 
 "Para que se pueda insertar la letra é, que es igual a <m-i>"
 "autocmd FileType tex iunmap <buffer> <M-i>
@@ -93,8 +90,6 @@ set spelllang=es,en
 imap jj <Esc>
 imap jw <Esc>:w<CR>a
 imap jk <Esc>:w<CR>
-
-nmap <Space> <leader>
 
 colorscheme hybrid
 set background=dark
@@ -124,6 +119,7 @@ let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_underbar_completion = 0
 
 
+"""" PROMPLINE
 function! Noscrollbar(...)
     ""let w:airline_section_z = '%{noscrollbar#statusline(9,'' '',''█'',[''▐''],[''▌''])}'
     ""let w:airline_section_z = '%{noscrollbar#statusline(9,''-'',''='')}'
@@ -139,6 +135,17 @@ let g:promptline_preset = {
         \'warn' : [ promptline#slices#last_exit_code() ],
         \'x'    : [ promptline#slices#vcs_branch() ],
         \'z'    : [ "$(date '+%a %d %b %r')" ]}
+
+
+"""""" LATEX
+"" Latexbox options
+let g:LatexBox_quickfix = 1
+let g:LatexBox_latexmk_preview_continuously=1
+let g:LatexBox_latexmk_async=1
+let g:LatexBox_latexmk_options = "-pvc -pdf -dvi-"
+let g:LatexBox_build_dir = "target"
+au FileType tex map j j
+au FileType tex map k k
 
 
 ""Startify
