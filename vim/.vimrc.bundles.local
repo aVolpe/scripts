@@ -26,3 +26,5 @@ Bundle 'mattn/flappyvird-vim'
 Bundle 'edkolev/promptline.vim'
 Bundle 'nicwest/QQ.vim'
 Bundle 'dahu/vim-lotr'
+
+Bundle 'mhinz/vim-startify'
