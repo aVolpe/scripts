@@ -1,3 +1,6 @@
+let g:spf13_leader = ' ' 
+nnoremap <SPACE> <Nop>
+
 let g:spf13_bundle_groups=['general', 'writing', 'neocomplcache', 'programming', 'ruby', 'python', 'javascript', 'html', 'misc']
 let g:airline_section_b = '%{strftime("%c")}'
 let g:airline#extensions#tabline#enabled = 1
@@ -25,7 +28,7 @@ autocmd FileType tex set textwidth=80
 "Hay que remapear <M-i> a toda costa, por que <M-i>=é
 "Por defecto para archivos latex, apunta a <Plug>Tex_insertitemonthisline
 "
-autocmd FileType tex imap <buffer> <C-i> <Plug>Tex_InsertItemOnThisLine 
+"autocmd FileType tex imap <buffer> <C-i> <Plug>Tex_InsertItemOnThisLine 
 autocmd FileType tex map \gq ?^$\\|^\s*\(\\begin\\|\\end\\|\\label\)?1<CR>gq//-1<CR>
 ""autocmd FileType tex unmap <buffer> <leader>it
 
