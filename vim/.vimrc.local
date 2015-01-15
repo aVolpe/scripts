@@ -17,6 +17,30 @@ fu! SumFunc() range
      return 0
 endfu
 
+fu! PromFunc() range
+     let old = @a
+     normal gv"ay
+     let sel=@a
+     let @a=old
+     let t:r=0.0
+     let t:c=0.0
+     try
+		exe 'let t:r = ' . join(split(sel,'\n'), '+')
+        let t:c = len(split(sel, '\n'))
+     catch
+              return -1
+     endtry
+     let t:r = t:r * 1.0
+     let t:c = t:c * 1.0
+     echo t:r
+     echo t:c
+     echo "--"
+     let t:r = t:r / (1.0 * t:c)
+     echo t:r 
+     let @" = string(t:r)
+     return 0
+endfu
+
 function! RenameFile()
     let old_name = expand('%')
     let new_name = input('New file name: ', expand('%'), 'file')
@@ -30,6 +54,7 @@ map <leader>R :call RenameFile()<cr>
 
 
 vnoremap <F3> :call SumFunc()<CR>
+vnoremap <F4> :call PromFunc()<CR>
 noremap <F5> :PreviewMarkdown<CR>
 nnoremap K i<CR><Esc>
 
@@ -149,27 +174,8 @@ au FileType tex map k k
 
 
 ""Startify
-let g:startify_custom_header = [
-\ '  /$$$$$$                                 /$$$$$$                                        /$$    /$$$$$$       /$$  ',
-\ ' /$$__  $$                               /$$__  $$                                     /$$$$   /$$__  $$    /$$$$  ',
-\ '| $$  \ $$  /$$$$$$   /$$$$$$  /$$$$$$$ | $$  \__/ /$$   /$$  /$$$$$$$  /$$$$$$       |_  $$  |__/  \ $$   |_  $$  ',
-\ '| $$  | $$ /$$__  $$ /$$__  $$| $$__  $$|  $$$$$$ | $$  | $$ /$$_____/ /$$__  $$        | $$     /$$$$$/     | $$  ',
-\ '| $$  | $$| $$  \ $$| $$$$$$$$| $$  \ $$ \____  $$| $$  | $$|  $$$$$$ | $$$$$$$$        | $$    |___  $$     | $$  ',
-\ '| $$  | $$| $$  | $$| $$_____/| $$  | $$ /$$  \ $$| $$  | $$ \____  $$| $$_____/        | $$   /$$  \ $$     | $$  ',
-\ '|  $$$$$$/| $$$$$$$/|  $$$$$$$| $$  | $$|  $$$$$$/|  $$$$$$/ /$$$$$$$/|  $$$$$$$       /$$$$$$|  $$$$$$//$$ /$$$$$$',
-\ ' \______/ | $$____/  \_______/|__/  |__/ \______/  \______/ |_______/  \_______/      |______/ \______/|__/|______/',
-\ '          | $$                                                                                                     ',
-\ '          | $$                                                                                                     ',
-\ '          |__/                                                                                                     ',
-\ '                                           /$$    /$$ /$$$$$$ /$$      /$$                                         ',
-\ '                                          | $$   | $$|_  $$_/| $$$    /$$$                                         ',
-\ '                                          | $$   | $$  | $$  | $$$$  /$$$$                                         ',
-\ '                                          |  $$ / $$/  | $$  | $$ $$/$$ $$                                         ',
-\ '                                           \  $$ $$/   | $$  | $$  $$$| $$                                         ',
-\ '                                            \  $$$/    | $$  | $$\  $ | $$                                         ',
-\ '                                             \  $/    /$$$$$$| $$ \/  | $$                                         ',
-\ '                                              \_/    |______/|__/     |__/                                         '
-\ ]
+let g:startify_custom_header =
+      \ map(split(system('fortune | cowsay -f $(ls /usr/share/cows/ | shuf -n1)'), '\n'), '"   ". v:val') + ['']
 let g:startify_bookmarks = [ '~/.vimrc.local', 
             \ '~/.vimrc.bundles.local' ]
 autocmd User Startified setlocal cursorline
@@ -180,7 +186,7 @@ autocmd User Startified setlocal cursorline
            \ ]
 ""Tema
 highlight StartifyBracket ctermfg=240
-highlight StartifyFooter  ctermfg=240
+highlight StartifyFooter  ctermfg=114
 highlight StartifyHeader  ctermfg=114
 highlight StartifyNumber  ctermfg=215
 highlight StartifyPath    ctermfg=245
