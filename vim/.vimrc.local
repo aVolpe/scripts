@@ -169,11 +169,13 @@ let g:LatexBox_latexmk_preview_continuously=1
 let g:LatexBox_latexmk_async=1
 let g:LatexBox_latexmk_options = "-pvc -pdf -dvi-"
 let g:LatexBox_build_dir = "target"
+let g:LatexBox_Folding = 1
 au FileType tex map j j
 au FileType tex map k k
 
 
-""Startify
+"Startify
+"" Cabecera y pie:
 let g:startify_custom_header =
       \ map(split(system('fortune | cowsay -f $(ls /usr/share/cows/ | shuf -n1)'), '\n'), '"   ". v:val') + ['']
 let g:startify_bookmarks = [ '~/.vimrc.local', 
@@ -192,3 +194,6 @@ highlight StartifyNumber  ctermfg=215
 highlight StartifyPath    ctermfg=245
 highlight StartifySlash   ctermfg=240
 highlight StartifySpecial ctermfg=240
+
+" Fold
+set foldcolumn=3

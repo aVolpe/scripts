@@ -21,6 +21,7 @@ let wiki.template_ext = '.htm'
 
 let g:vimwiki_list = [ wiki ]
 let g:vimwiki_rxTableSep = '|'
+let g:vimwiki_folding = 'expr'
 
 autocmd FileType zsh setlocal syntax=shell
 autocmd FileType tex set wrap
