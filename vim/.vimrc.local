@@ -1,44 +1,46 @@
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
 
-"FUNCTIONS"
+"FUNCTIONS {
+" Matemática
 fu! SumFunc() range
-     let old = @a
-     normal gv"ay
-     let sel=@a
-     let @a=old
-     let t:r=0
-     try
-		exe 'let t:r = ' . join(split(sel,'\n'), '+')
-		" call append(a:lastline, printf("Sum: %.02f", res))
-     catch
-              return -1
-     endtry
-     echo t:r 
-     let @" = t:r
-     return 0
+    let old = @a
+    normal gv"ay
+    let sel=@a
+    let @a=old
+    let t:r=0
+    try
+        exe 'let t:r = ' . join(split(sel,'\n'), '+')
+        " call append(a:lastline, printf("Sum: %.02f", res))
+    catch
+        return -1
+    endtry
+    echo t:r 
+    let @" = t:r
+    return 0
 endfu
 
 fu! PromFunc() range
-     let old = @a
-     normal gv"ay
-     let sel=@a
-     let @a=old
-     let t:r=0.0
-     let t:c=0.0
-     try
-		exe 'let t:r = ' . join(split(sel,'\n'), '+')
+    let old = @a
+    normal gv"ay
+    let sel=@a
+    let @a=old
+    let t:r=0.0
+    let t:c=0.0
+    try
+        exe 'let t:r = ' . join(split(sel,'\n'), '+')
         let t:c = len(split(sel, '\n'))
-     catch
-              return -1
-     endtry
-     let t:r = t:r * 1.0
-     let t:c = t:c * 1.0
-     echo t:r
-     echo t:c
-     echo "--"
-     let t:r = t:r / (1.0 * t:c)
-     echo t:r 
-     let @" = string(t:r)
-     return 0
+    catch
+        return -1
+    endtry
+    let t:r = t:r * 1.0
+    let t:c = t:c * 1.0
+    echo t:r
+    echo t:c
+    echo "--"
+    let t:r = t:r / (1.0 * t:c)
+    echo t:r 
+    let @" = string(t:r)
+    return 0
 endfu
 
 function! RenameFile()
@@ -51,21 +53,19 @@ function! RenameFile()
     endif
 endfunction
 map <leader>R :call RenameFile()<cr>
-
-
 vnoremap <F3> :call SumFunc()<CR>
 vnoremap <F4> :call PromFunc()<CR>
 noremap <F5> :PreviewMarkdown<CR>
-nnoremap K i<CR><Esc>
+" }
 
 set history=10000
-set mouse=
+set mouse=                      " Disable mouse
 set shiftwidth=4                " Use indents of 4 spaces
 set expandtab                   " Tabs are spaces, not tabs
 set tabstop=4                   " An indentation every four columns
 set nolist
-set nopaste
 set softtabstop=4             " Let backspace delete indent
+set nopaste
 
 augroup myvimrchooks
     au!
@@ -73,7 +73,7 @@ augroup myvimrchooks
 augroup END
 
 
-set nopaste
+nnoremap K i<CR><Esc>
 "%map \ <Plug>(easymotion-prefix)
 "nmap \s <Plug>(easymotion-s2)
 "nmap \t <Plug>(easymotion-t2)
@@ -81,13 +81,22 @@ map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 map  n <Plug>(easymotion-next)
 map  N <Plug>(easymotion-prev)
+"" Navegación con espacio l
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>h <Plug>(easymotion-linebackward)
+let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 
 let g:indent_guides_enable_on_vim_startup = 0
 let g:PreviewBrowsers = "xdg-open"
 
-au BufRead,BufNewFile *.md set filetype=markdown
-au BufRead,BufNewFile *.tex set filetype=tex
-au BufNewFile,BufRead *.cs set foldmethod=syntax
+augroup FixFileType
+    au BufRead,BufNewFile *.md set filetype=markdown
+    au BufRead,BufNewFile *.tex set filetype=tex
+    au BufNewFile,BufRead *.cs set foldmethod=syntax
+augroup END
+
 au FileType markdown set wrap
 au FileType markdown set textwidth=80
 au FileType gitcommit set fileencoding=utf8
@@ -116,10 +125,13 @@ imap jj <Esc>
 imap jw <Esc>:w<CR>a
 imap jk <Esc>:w<CR>
 
+" Colorscheme
 colorscheme hybrid
 set background=dark
 hi clear SpellBad
 hi SpellBad cterm=underline,bold ctermfg=red
+"" Transparent background
+hi Normal ctermbg=none
 
 "GIT options
 set diffopt+=vertical
@@ -145,21 +157,21 @@ let g:neocomplcache_enable_underbar_completion = 0
 
 
 """" PROMPLINE
-function! Noscrollbar(...)
-    ""let w:airline_section_z = '%{noscrollbar#statusline(9,'' '',''█'',[''▐''],[''▌''])}'
-    ""let w:airline_section_z = '%{noscrollbar#statusline(9,''-'',''='')}'
-    ""let w:airline_section_z = '%{noscrollbar#statusline(10,'' '',''॥'')}'
-    let w:airline_section_z = '%{noscrollbar#statusline(15,'' '',''█'',[''▐''],[''▌''])}'
-    ""let w:airline_section_z = '%{noscrollbar#statusline(9,''■'',''◫'',[''◧''],[''◨''])}'
-endfunction
-call airline#add_statusline_func('Noscrollbar')
+"function! Noscrollbar(...)
+"""let w:airline_section_z = '%{noscrollbar#statusline(9,'' '',''█'',[''▐''],[''▌''])}'
+"""let w:airline_section_z = '%{noscrollbar#statusline(9,''-'',''='')}'
+"""let w:airline_section_z = '%{noscrollbar#statusline(10,'' '',''॥'')}'
+"let w:airline_section_z = '%{noscrollbar#statusline(15,'' '',''█'',[''▐''],[''▌''])}'
+"""let w:airline_section_z = '%{noscrollbar#statusline(9,''■'',''◫'',[''◧''],[''◨''])}'
+"endfunction
+"call airline#add_statusline_func('Noscrollbar')
 
 
-let g:promptline_preset = {
-        \'b'    : [ promptline#slices#cwd() ],
-        \'warn' : [ promptline#slices#last_exit_code() ],
-        \'x'    : [ promptline#slices#vcs_branch() ],
-        \'z'    : [ "$(date '+%a %d %b %r')" ]}
+"let g:promptline_preset = {
+"\'b'    : [ promptline#slices#cwd() ],
+"\'warn' : [ promptline#slices#last_exit_code() ],
+"\'x'    : [ promptline#slices#vcs_branch() ],
+"\'z'    : [ "$(date '+%a %d %b %r')" ]}
 
 
 """""" LATEX
@@ -170,22 +182,22 @@ let g:LatexBox_latexmk_async=1
 let g:LatexBox_latexmk_options = "-pvc -pdf -dvi-"
 let g:LatexBox_build_dir = "target"
 let g:LatexBox_Folding = 1
-au FileType tex map j j
-au FileType tex map k k
+"au FileType tex map j j
+"au FileType tex map k k
 
 
 "Startify
 "" Cabecera y pie:
 let g:startify_custom_header =
-      \ map(split(system('fortune | cowsay -f $(ls /usr/share/cows/ | shuf -n1)'), '\n'), '"   ". v:val') + ['']
+            \ map(split(system('fortune | cowsay -f $(ls /usr/share/cows/ | shuf -n1)'), '\n'), '"   ". v:val') + ['']
 let g:startify_bookmarks = [ '~/.vimrc.local', 
             \ '~/.vimrc.bundles.local' ]
 autocmd User Startified setlocal cursorline
-    let g:startify_skiplist = [
-           \ 'COMMIT_EDITMSG',
-           \ '.vimrc.local',
-           \ '.vimrc.bundles.local'
-           \ ]
+let g:startify_skiplist = [
+            \ 'COMMIT_EDITMSG',
+            \ '.vimrc.local',
+            \ '.vimrc.bundles.local'
+            \ ]
 ""Tema
 highlight StartifyBracket ctermfg=240
 highlight StartifyFooter  ctermfg=114
@@ -196,4 +208,46 @@ highlight StartifySlash   ctermfg=240
 highlight StartifySpecial ctermfg=240
 
 " Fold
-set foldcolumn=3
+"set foldcolumn=3
+
+
+" Vim-peekaboo
+let g:peekaboo_window = 'rightbelow 30new'
+
+" Ack vim
+if executable('ag')
+    let g:ackprg = 'ag --nogroup --nocolor --column'
+endif
+
+set nonumber
+
+
+"" Autofix
+
+augroup AutoReplace
+    au FileType tex iab enfemería enfermería
+augroup END
+
+" see http://stackoverflow.com/questions/1313171/vim-combining-autocmd
+augroup VimwikiAutowrite
+    au FileType vimwiki set nobackup
+    au FileType vimwiki set nowritebackup
+    au FileType vimwiki set noswapfile
+    au FileType vimwiki set autowrite
+    au FocusLost *.wiki :w
+    au FileType vimwiki set autowrite
+    au FocusLost *.wiki echomsg "Hola"
+augroup END
+
+"" AutoPairs (activate flymode)
+let g:AutoPairsFlyMode = 1
+let g:AutoPairsShortcutBackInsert = '<M-b>'
+
+" Fix some problems with the <esc> key {
+let g:spf13_no_omni_complete = 1
+" }
+" Vim Sayonara {
+" Close buffer with gs
+nnoremap gs :Sayonara<cr>
+nnoremap gS :Sayonara!<cr>
+" }

@@ -1,30 +1,47 @@
-Bundle   'vimwiki/vimwiki'
-UnBundle 'derekwyatt/vim-scala'
-UnBundle 'derekwyatt/vim-sbt'
-"Bundle   'greyblake/vim-preview'
-"Bundle   'tpope/vim-markdown'
-UnBundle 'itchyny/calendar.vim'
-Bundle   'mattn/calendar-vim'
-Bundle   'LaTeX-Box-Team/LaTeX-Box'
-Bundle   'vim-scripts/Latex-Text-Formatter'
-UnBundle 'godlygeek/csapprox'
-Bundle 'vim-scripts/SQLUtilities'
-Bundle 'vim-scripts/Align'
-Bundle 'vim-voom/VOoM'
+"Vimwiki
+Bundle 'vimwiki/vimwiki'
+
+"Latex
+Bundle 'LaTeX-Box-Team/LaTeX-Box'
+UnBundle 'vim-scripts/Latex-Text-Formatter'
+
 Bundle 'tpope/vim-unimpaired'
-UnBundle 'danchoi/vmail'
 Bundle 'ivalkeen/vim-simpledb'
-"Bundle 'boucherm/ShowMotion'
-UnBundle 'boucherm/ShowMotion'
-Bundle 'mtth/scratch.vim'
-""Bundle 'techlivezheng/vim-plugin-minibufexpl'
-UnBundle 'techlivezheng/vim-plugin-minibufexpl'
 Bundle 'gcavallanti/vim-noscrollbar'
+
+"Varios
 Bundle 'mattn/flappyvird-vim'
-
-
-Bundle 'edkolev/promptline.vim'
-Bundle 'nicwest/QQ.vim'
-Bundle 'dahu/vim-lotr'
+Bundle 'jmanoel7/vim-games'
 
 Bundle 'mhinz/vim-startify'
+
+" Utiliza @ y " como accesos directos para mostrar
+" Los registros.
+Bundle 'junegunn/vim-peekaboo'
+
+" Permite cerrar el buffer actual.
+Bundle 'mhinz/vim-sayonara'
+
+
+" Plugins innecesarios "
+"" Interesante, pero no hay que usar vim como un IDE
+UnBundle 'vim-voom/VOoM'
+
+"" Interesante, pero no funciona con proxy, ni con 
+"" Vimrc tan complicados
+UnBundle 'danchoi/vmail'
+
+"" ZSH command line (no se usa)
+UnBundle 'edkolev/promptline.vim'
+
+"" REST client.
+UnBundle 'nicwest/QQ.vim'
+
+""Varios
+UnBundle 'derekwyatt/vim-scala'
+UnBundle 'derekwyatt/vim-sbt'
+UnBundle 'itchyny/calendar.vim'
+UnBundle 'mattn/calendar-vim'
+
+UnBundle 'godlygeek/csapprox'
+UnBundle 'vim-scripts/SQLUtilities'
