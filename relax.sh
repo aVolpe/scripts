@@ -107,8 +107,6 @@ function download() {
 
 opt="$1"
 case "$opt" in
-    "")
-        usage;;
     "start")
         start;;
     "stop")
@@ -117,6 +115,8 @@ case "$opt" in
         pause;;
     "download")
         download;;
+    *)
+        usage;;
 esac
 
 
