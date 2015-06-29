@@ -51,30 +51,32 @@ fpath=(/home/avolpe/.oh-my-zsh/custom/autocomplete/zsh-completions-master/src/ $
 rm -f ~/.zcompdump; compinit
 export EDITOR=vim
 
-mwiki() { dig +short txt "$*".wp.dg.cx; }
+#mwiki() { dig +short txt "$*".wp.dg.cx; }
 
 # Customize to your needs...
 
 export MAN_POSIXLY_CORRECT=1 
 
-[ -f ~/.last_dir ] && cd `cat ~/.last_dir`
+#[ -f ~/.last_dir ] && cd `cat ~/.last_dir`
 
 LS_COLORS="$LS_COLORS:di=0;91:ln=4"  ; export LS_COLORS
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
-if [ -f ~/.proxy_status ]
-then
-	WITH_PROXY=`cat ~/.proxy_status`
-	echo $WITH_PROXY
-	if [ "$WITH_PROXY" = "WITHOUT PROXY" ]
-	then
-		. ~/scripts/unset_proxy > /dev/null
-	else
-		. ~/scripts/export_proxy avolpe PASS > /dev/null
-	fi
-fi
+#if [ -f ~/.proxy_status ]
+#then
+	#WITH_PROXY=`cat ~/.proxy_status`
+	#echo $WITH_PROXY
+	#if [ "$WITH_PROXY" = "WITHOUT PROXY" ]
+	#then
+		#. ~/scripts/unset_proxy > /dev/null
+	#else
+		#. ~/scripts/export_proxy avolpe asdaed > /dev/null
+	#fi
+#fi
 
+PATH="~/.gem/ruby/2.1.0/bin:$PATH"
 
 setopt correct_all
+source ~/scripts/zsh/completition/tmuxinator.zsh
 #source ~/.zsh_prompt.sh

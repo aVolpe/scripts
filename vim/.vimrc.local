@@ -58,6 +58,7 @@ vnoremap <F4> :call PromFunc()<CR>
 noremap <F5> :PreviewMarkdown<CR>
 " }
 
+" Tab y configuración global {
 set history=10000
 set mouse=                      " Disable mouse
 set shiftwidth=4                " Use indents of 4 spaces
@@ -66,82 +67,31 @@ set tabstop=4                   " An indentation every four columns
 set nolist
 set softtabstop=4             " Let backspace delete indent
 set nopaste
-
-augroup myvimrchooks
-    au!
-    autocmd bufwritepost .vimrc source ~/.vimrc
-augroup END
-
-
-nnoremap K i<CR><Esc>
-"%map \ <Plug>(easymotion-prefix)
-"nmap \s <Plug>(easymotion-s2)
-"nmap \t <Plug>(easymotion-t2)
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
-map  n <Plug>(easymotion-next)
-map  N <Plug>(easymotion-prev)
-"" Navegación con espacio l
-map <Leader>l <Plug>(easymotion-lineforward)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-map <Leader>h <Plug>(easymotion-linebackward)
-let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
-
-let g:indent_guides_enable_on_vim_startup = 0
-let g:PreviewBrowsers = "xdg-open"
-
-augroup FixFileType
-    au BufRead,BufNewFile *.md set filetype=markdown
-    au BufRead,BufNewFile *.tex set filetype=tex
-    au BufNewFile,BufRead *.cs set foldmethod=syntax
-augroup END
-
-au FileType markdown set wrap
-au FileType markdown set textwidth=80
-au FileType gitcommit set fileencoding=utf8
-au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
-
-"Java config
-"With eclim
-""let g:EclimCompletionMethod = 'omnifunc'
-let g:syntastic_java_checkers=['']
-
-
-
-"Para que se pueda insertar la letra é, que es igual a <m-i>"
-"autocmd FileType tex iunmap <buffer> <M-i>
-"autocmd FileType tex iunmap <buffer> <leader> <M-i>
-
-""NeoCompl:
-""Utilización de camelCase
-let g:neocomplcache_enable_camel_case_completion = 1
+set nonumber
 
 set fileencodings=ucs-bom,utf8,prc
 set spell
 set spelllang=es,en
 
-imap jj <Esc>
+"set shell=/usr/bin/zsh\ -i
+"set shellcmdflag+=i
+"}
+
+" Maps útiles {
+nnoremap K i<CR><Esc>
+
+" Navegación {{
+imap jj <Esc><Esc><Esc>
 imap jw <Esc>:w<CR>a
 imap jk <Esc>:w<CR>
+" }}
 
-" Colorscheme
-colorscheme hybrid
-set background=dark
-hi clear SpellBad
-hi SpellBad cterm=underline,bold ctermfg=red
-"" Transparent background
-hi Normal ctermbg=none
-
-"GIT options
-set diffopt+=vertical
-set scrolloff=10
-
-"Resize options
+" Resize options {{
 nnoremap <silent> <Leader>eh :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>rh :exe "resize " . (winheight(0) * 2/3)<CR>
 nnoremap <silent> <Leader>ev :exe "vertical resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>rv :exe "vertical resize " . (winheight(0) * 2/3)<CR>
+" }}
 
 "Ejecuta el archivo actual con ,r
 nnoremap <leader>r :!%:p<CR>
@@ -151,12 +101,74 @@ command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=h
 map <leader>h :bnext<cr>
 map <leader>l :bprevious<cr>"
 
-"" NeoComplCache
-let g:neocomplcache_enable_camel_case_completion = 1
-let g:neocomplcache_enable_underbar_completion = 0
+
+"nnoremap g^ gUiW
+"nnoremap gv guiW
+"nunmap g^ gUiW
+"nunmap gv guiW
+
+" }
 
 
-"""" PROMPLINE
+augroup FixFileType
+    au BufRead,BufNewFile *.md set filetype=markdown
+    au BufRead,BufNewFile *.tex set filetype=tex
+    au BufNewFile,BufRead *.cs set foldmethod=syntax
+augroup END
+
+au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
+let g:indent_guides_enable_on_vim_startup = 0
+
+" Colorscheme {
+colorscheme hybrid
+set background=dark
+hi clear SpellBad
+hi SpellBad cterm=underline,bold ctermfg=red
+" Transparent background
+hi Normal ctermbg=none
+" Match pairing http://stackoverflow.com/questions/10746750/set-vim-bracket-highlighting-colors
+hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
+" }
+
+" Per file config {
+
+" GIT {
+au FileType gitcommit set fileencoding=utf8
+set diffopt+=vertical
+set scrolloff=10
+" }
+
+" Tex{
+
+augroup TexConfig
+    au FileType tex iab enfemería enfermería
+    au FileType tex set conceallevel=0
+augroup END
+" Disable conceallevel (reemplazar letras por su versión formateada)
+" }
+
+" Vimwiki {
+" See http://stackoverflow.com/questions/1313171/vim-combining-autocmd
+augroup VimwikiAutowrite
+    au FileType vimwiki set nobackup
+    au FileType vimwiki set nowritebackup
+    au FileType vimwiki set noswapfile
+    au FileType vimwiki set autowrite
+    au FocusLost *.wiki :w
+    au FileType vimwiki set autowrite
+augroup END
+
+"}
+
+" Markdown {
+au FileType markdown set wrap
+au FileType markdown set textwidth=80
+" }
+" }
+
+" Plugins: {
+
+" Plugin: Prompline {
 "function! Noscrollbar(...)
 """let w:airline_section_z = '%{noscrollbar#statusline(9,'' '',''█'',[''▐''],[''▌''])}'
 """let w:airline_section_z = '%{noscrollbar#statusline(9,''-'',''='')}'
@@ -173,8 +185,9 @@ let g:neocomplcache_enable_underbar_completion = 0
 "\'x'    : [ promptline#slices#vcs_branch() ],
 "\'z'    : [ "$(date '+%a %d %b %r')" ]}
 
+" }
 
-"""""" LATEX
+" Plugin: LatexBox {
 "" Latexbox options
 let g:LatexBox_quickfix = 1
 let g:LatexBox_latexmk_preview_continuously=1
@@ -182,11 +195,10 @@ let g:LatexBox_latexmk_async=1
 let g:LatexBox_latexmk_options = "-pvc -pdf -dvi-"
 let g:LatexBox_build_dir = "target"
 let g:LatexBox_Folding = 1
-"au FileType tex map j j
-"au FileType tex map k k
+let g:PreviewBrowsers = "xdg-open"
+" }
 
-
-"Startify
+" Plugin: Startify {
 "" Cabecera y pie:
 let g:startify_custom_header =
             \ map(split(system('fortune | cowsay -f $(ls /usr/share/cows/ | shuf -n1)'), '\n'), '"   ". v:val') + ['']
@@ -207,47 +219,59 @@ highlight StartifyPath    ctermfg=245
 highlight StartifySlash   ctermfg=240
 highlight StartifySpecial ctermfg=240
 
-" Fold
-"set foldcolumn=3
+" }
 
-
-" Vim-peekaboo
+" Plugin: Peekaboo {
 let g:peekaboo_window = 'rightbelow 30new'
 
-" Ack vim
+"}
+
+" Plugin: Ack vim {
 if executable('ag')
     let g:ackprg = 'ag --nogroup --nocolor --column'
 endif
+" }
 
-set nonumber
-
-
-"" Autofix
-
-augroup AutoReplace
-    au FileType tex iab enfemería enfermería
-augroup END
-
-" see http://stackoverflow.com/questions/1313171/vim-combining-autocmd
-augroup VimwikiAutowrite
-    au FileType vimwiki set nobackup
-    au FileType vimwiki set nowritebackup
-    au FileType vimwiki set noswapfile
-    au FileType vimwiki set autowrite
-    au FocusLost *.wiki :w
-    au FileType vimwiki set autowrite
-    au FocusLost *.wiki echomsg "Hola"
-augroup END
-
-"" AutoPairs (activate flymode)
-let g:AutoPairsFlyMode = 1
+" Plugin: AutoPairs  {
+let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutBackInsert = '<M-b>'
 
-" Fix some problems with the <esc> key {
-let g:spf13_no_omni_complete = 1
 " }
-" Vim Sayonara {
+
+" Plugin: Sayonara {
 " Close buffer with gs
 nnoremap gs :Sayonara<cr>
 nnoremap gS :Sayonara!<cr>
 " }
+
+" Plugin: NeoComplCache {
+let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_underbar_completion = 0
+" }
+
+" Plugin: easymotion {
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
+"" Navegación con espacio l
+"map <Leader>l <Plug>(easymotion-lineforward)
+"map <Leader>j <Plug>(easymotion-j)
+"map <Leader>k <Plug>(easymotion-k)
+"map <Leader>h <Plug>(easymotion-linebackward)
+let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+" }
+
+" Plugin: syntastic {
+let g:syntastic_java_checkers = ['']
+let g:syntastic_always_populate_loc_list = 1
+" }
+
+" }
+" Bugs ZONE
+
+" Fix some problems with the <esc> key {
+let g:spf13_no_omni_complete = 0
+imap <Esc> <Esc><Esc><Esc>
+" }
+

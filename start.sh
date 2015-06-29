@@ -31,14 +31,17 @@ function not_weekend () {
     esac
 }
 
-case $day in
-    S*)
-        home;;
-    *)
-        not_weekend;;
-esac
+#case $day in
+    #S*)
+        #home;;
+    #*)
+        #not_weekend;;
+#esac
 
+home
 #sleep 3
 #feh --bg-scale /usr/share/wallpapers/openSUSEdefault/contents/images/1920x1080.jpg
 xrandr --output VGA-1-2 --off
 xrandr --output VGA-1-1 --off
+
+rm /tmp/relax_*

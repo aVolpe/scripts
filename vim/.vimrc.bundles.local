@@ -1,6 +1,14 @@
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
+
 "Vimwiki
 Bundle 'vimwiki/vimwiki'
 
+" Plugins no utilizados
+UnBundle 'cespare/vim-toml'
+UnBundle 'reedes/vim-wordy'
+UnBundle 'reedes/vim-litecorrect'
+
+"
 "Latex
 Bundle 'LaTeX-Box-Team/LaTeX-Box'
 UnBundle 'vim-scripts/Latex-Text-Formatter'
@@ -45,3 +53,7 @@ UnBundle 'mattn/calendar-vim'
 
 UnBundle 'godlygeek/csapprox'
 UnBundle 'vim-scripts/SQLUtilities'
+
+" Test 
+"Bundle 'mattn/webapi-vim'
+Bundle 'cirla/vim-giphy'

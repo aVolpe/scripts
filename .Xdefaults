@@ -38,3 +38,10 @@ xterm*colorUL: #9f87ff
 xterm*foreground: #9F9FA1
 xterm*background: #171423
 xterm*cursorColor: #a288f7
+
+XTerm*vt100.translations: #override \
+        Shift <KeyPress> Up:      scroll-back(1, line) \n\
+        Shift <KeyPress> Down:    scroll-forw(1, line) \n\
+        Shift <KeyPress> Insert:  string(0x1b) string(0x5b) string(2;2~) \n\
+        Ctrl Shift <KeyPress> C:  select-end(PRIMARY,CLIPBOARD,CUT_BUFFER0) \n\
+        Ctrl Shift <KeyPress> V:  insert-selection(CLIPBOARD, CUT_BUFFER0, PRIMARY)

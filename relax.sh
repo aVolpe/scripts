@@ -34,8 +34,9 @@ function is_running () {
 
 function create_pipe () {
     if [ ! -p "$1"  ]; then
-        mkfifo "$1"
         echo "Creating pipe"
+        rm -f "$1"
+        mkfifo "$1"
     else
         echo "Pipe already created $1"
     fi
@@ -54,8 +55,7 @@ function to_pipe() {
 function start() {
 
     if is_running; then
-        echo "Already running"
-        exit
+        echo "Already running, starting anyway"
     fi
 
     create_pipe "$PIPE_JAZZ"
@@ -69,15 +69,17 @@ function start() {
 }
 
 function stop() {
-    if [ ! is_running ]; then
-        echo "Not running"
-        exit
-    fi
- 
-    to_pipe "quit"
+
     rm "$PIPE_JAZZ"
     rm "$PIPE_FIRE"
     rm "$PIPE_RAIN"
+
+    if [ ! is_running ]; then
+        echo "Not running"
+    else
+        to_pipe "quit"
+    fi
+ 
 }
 
 function pause() {
@@ -105,8 +107,7 @@ function download() {
     echo "Download complete, run sh relax.sh start"
 }
 
-opt="$1"
-case "$opt" in
+case "$1" in
     "start")
         start;;
     "stop")

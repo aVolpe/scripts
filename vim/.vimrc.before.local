@@ -1,12 +1,21 @@
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
+
+" Hacer que el espacio sea el leader {
 let g:spf13_leader = ' ' 
 nnoremap <SPACE> <Nop>
+"}
 
+" Configuración general SPF13 {
 let g:spf13_bundle_groups=['general', 'writing', 'neocomplcache', 'programming', 'ruby', 'python', 'javascript', 'html', 'misc']
-"let g:airline_section_z = '%{strftime("%c")}'
+" }
+
+" Plugin: airline {
+
+let g:airline_section_z = '%{strftime("%c")}'
 let g:airline#extensions#tabline#enabled = 1
+" }
 
 let g:indent_guides_enable_on_vim_startup = 0
-""let g:vimwiki_table_auto_fmt = 1
 let g:tagbar_ctags_bin='/usr/bin/ctags'
 
 let wikiroot = '~/.dropbox/Dropbox/'
@@ -18,6 +27,11 @@ let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'sql' : 'sql'}
 let wiki.template_path = wiki.path  . '/template/'
 let wiki.template_default = 'default'
 let wiki.template_ext = '.htm'
+
+augroup RemapVimWikiToggle
+    autocmd FileType tex nmap <silent><buffer> <leader>e <Plug>VimwikiToggleListItem
+    autocmd FileType tex vmap <silent><buffer> <leader>e <Plug>VimwikiToggleListItem
+augroup END
 
 let g:vimwiki_list = [ wiki ]
 let g:vimwiki_rxTableSep = '|'

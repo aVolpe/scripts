@@ -17,7 +17,7 @@
 # Recursos
 # Manipulacion de cadenas http://tldp.org/LDP/abs/html/string-manipulation.html
 
-echo "Usage: configure_monitor.sh SINGLE|DUAL VGAN RESXxRESy IZQ|DER"
+echo "Usage: configure_monitor.sh SINGLE|DUAL IZQ|DER VGAN RESXxRESy "
 
 DUAL="dual"
 SINGLE="single"
@@ -74,7 +74,7 @@ echo
 
 if [[ $PLACE != $SINGLE ]] 
 then
-	xrandr --output LVDS1 --mode 1366x768 --pos 0x0 --auto --output $VGA --mode $RES --pos "$OFFSET" --primary --auto
+    echo xrandr --output LVDS1 --mode 1366x768 --pos 0x0 --auto --output $VGA --mode $RES --pos "$OFFSET" --primary --auto
 else
 	xrandr --output LVDS1 --mode 1366x768 --auto --primary
 fi
