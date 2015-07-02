@@ -14,16 +14,21 @@ call vundle#begin('~/.nvim/bundle/')
 Plugin 'gmarik/Vundle.vim'
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
 Plugin 'flazz/vim-colorschemes'
-Plugin 'tpope/vim-fugitive'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'Shougo/unite.vim'
-Plugin 'tpope/vim-unimpaired'
 Plugin 'Shougo/neomru.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'vimwiki/vimwiki'
+Plugin 'scrooloose/syntastic'
+Plugin 'diepm/vim-rest-console'
+Plugin 'godlygeek/tabular'
+Plugin 'ivalkeen/vim-simpledb'
+Plugin 'scrooloose/nerdcommenter'
 
 call vundle#end()
 filetype plugin indent on
 " }
-
 " Plugin Latex-Box {
 
 let g:LatexBox_quickfix = 1
@@ -33,6 +38,20 @@ let g:LatexBox_latexmk_options = "-pvc -pdf -dvi-"
 let g:LatexBox_build_dir = "target"
 let g:LatexBox_Folding = 1
 let g:PreviewBrowsers = "xdg-open"
+" }
+" Plugin Syntastic {
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_java_checkers = ['']
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 " }
 " Plugin Unite {
 "
@@ -44,12 +63,11 @@ let g:PreviewBrowsers = "xdg-open"
     let g:unite_source_grep_recursive_opt = ''
 
     " Explore buffers
-    nnoremap <Leader>b :Unite -buffer-name=buffers -winheight=10 buffer<cr>
+    nnoremap <Leader>b :Unite -start-insert -buffer-name=buffers -winheight=10 buffer<cr>
     " Explore files
     nnoremap <Leader>p :Unite -start-insert -buffer-name=files -winheight=10 file_rec/async<cr>
     " Explore recent files
-    nnoremap <Leader>m :Unite -buffer-name=recent -winheight=10 file_mru<cr>
-    nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
+    nnoremap <Leader>m :Unite -start-insert -buffer-name=recent -winheight=10 file_mru<cr>
 
     " mappings in the unite buffer (use c-j ck)
     autocmd FileType unite call s:unite_settings()
@@ -59,6 +77,32 @@ let g:PreviewBrowsers = "xdg-open"
       imap <buffer> <C-j>   <Plug>(unite_select_next_line)
       imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
     endfunction
+" }
+" Plugin Tabular {
+
+nmap <Leader>a& :Tabularize /&<CR>
+vmap <Leader>a& :Tabularize /&<CR>
+nmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
+vmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
+nmap <Leader>a=> :Tabularize /=><CR>
+vmap <Leader>a=> :Tabularize /=><CR>
+nmap <Leader>a: :Tabularize /:<CR>
+vmap <Leader>a: :Tabularize /:<CR>
+nmap <Leader>a:: :Tabularize /:\zs<CR>
+vmap <Leader>a:: :Tabularize /:\zs<CR>
+nmap <Leader>a, :Tabularize /,<CR>
+vmap <Leader>a, :Tabularize /,<CR>
+nmap <Leader>a,, :Tabularize /,\zs<CR>
+vmap <Leader>a,, :Tabularize /,\zs<CR>
+nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
+vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
+" }
+" Plugin NerdCommenter {
+
+let g:NERDCustomDelimiters = {
+  \ 'rest': { 'left': '# ' },
+\ }
+
 " }
 " ColorScheme {
     colorscheme hybrid
@@ -94,12 +138,26 @@ augroup VimwikiAutowrite
     au FileType vimwiki set autowrite
 augroup END
 
+let wikiroot = '~/.dropbox/Dropbox/'
+let wiki = {}
+let wiki.path = wikiroot . '/wiki/'
+let wiki.path_html = wikiroot . '/wiki_html/'
+let wiki.auto_export = 1
+let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'sql' : 'sql'}
+let wiki.template_path = wiki.path  . '/template/'
+let wiki.template_default = 'default'
+let wiki.template_ext = '.htm'
+
+let g:vimwiki_list = [ wiki ]
+let g:vimwiki_rxTableSep = '|'
+let g:vimwiki_folding = 'expr'
 "}
 " Markdown {
 au FileType markdown set wrap
 au FileType markdown set textwidth=80
 au FileType markdown noremap <F5> :PreviewMarkdown<CR>
 " }
+au BufRead,BufNewFile .vrapperrc setfiletype vim
 " }
 "Clipboard configuration {
     set clipboard=unnamed,unnamedplus
@@ -116,6 +174,8 @@ set iskeyword-=.                    " '.' is an end of word designator
 set iskeyword-=#                    " '#' is an end of word designator
 set iskeyword-=-                    " '-' is an end of word designator
 set splitright
+set splitbelow
+set autochdir
 
 set mouse=                          " Disable mouse
 set shiftwidth=4                    " Use indents of 4 spaces

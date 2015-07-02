@@ -1,0 +1,44 @@
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
+
+" Maps {
+imap jj <Esc>
+imap jw <Esc>:w<CR>a
+imap jk <Esc>:w<CR>
+
+noremap <C-B> <C-V>
+nnoremap <C-W> :q<CR>
+
+nnoremap K i<CR><Esc>
+
+
+eclipseaction eclipsenextmember org.eclipse.jdt.ui.edit.text.java.goto.next.member
+nnoremap ]] :eclipsenextmember<cr>
+eclipseaction eclipseprevmember org.eclipse.jdt.ui.edit.text.java.goto.previous.member
+nnoremap [[ :eclipseprevmember<cr>
+" }
+
+" Configuración Global {
+" See http://vrapper.sourceforge.net/documentation/?topic=configuration
+set ignorecase
+set smartcase
+set incsearch
+set tabstop=4
+set shiftwidth=4
+set scrolloff=4
+set autochdir
+set contentassistmode
+set clipboard=unnamed,unnamedplus
+" }
+
+" Server maps {
+eclipseaction runOnServer org.eclipse.debug.ui.commands.RunLast
+eclipseaction fullPublish org.jboss.ide.eclipse.as.wtp.ui.fullPublishCommand
+
+map <SPACE>rd :runOnServer<CR>
+map <SPACE>rf :fullPublish<CR>
+" }
+
+" Debug {
+eclipseaction toggle org.eclipse.debug.ui.commands.ToggleBreakpoint
+nmap <SPACE>dt :toggle
+" }
