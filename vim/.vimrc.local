@@ -1,7 +1,7 @@
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
 
 "FUNCTIONS {
-" Matemática
+" Matemática {
 fu! SumFunc() range
     let old = @a
     normal gv"ay
@@ -14,7 +14,7 @@ fu! SumFunc() range
     catch
         return -1
     endtry
-    echo t:r 
+    echo t:r
     let @" = t:r
     return 0
 endfu
@@ -38,7 +38,7 @@ fu! PromFunc() range
     echo t:c
     echo "--"
     let t:r = t:r / (1.0 * t:c)
-    echo t:r 
+    echo t:r
     let @" = string(t:r)
     return 0
 endfu
@@ -56,6 +56,81 @@ map <leader>R :call RenameFile()<cr>
 vnoremap <F3> :call SumFunc()<CR>
 vnoremap <F4> :call PromFunc()<CR>
 noremap <F5> :PreviewMarkdown<CR>
+" }
+" TextObject functions {
+" Funciones internas {
+" Adapted from unimpaired.vim by Tim Pope.
+function! s:DoAction(algorithm,type)
+  " backup settings that we will change
+  let sel_save = &selection
+  let cb_save = &clipboard
+  " make selection and clipboard work the way we need
+  set selection=inclusive clipboard-=unnamed clipboard-=unnamedplus
+  " backup the unnamed register, which we will be yanking into
+  let reg_save = @@
+  " yank the relevant text, and also set the visual selection (which will be reused if the text
+  " needs to be replaced)
+  if a:type =~ '^\d\+$'
+    " if type is a number, then select that many lines
+    silent exe 'normal! V'.a:type.'$y'
+  elseif a:type =~ '^.$'
+    " if type is 'v', 'V', or '<C-V>' (i.e. 0x16) then reselect the visual region
+    silent exe "normal! `<" . a:type . "`>y"
+  elseif a:type == 'line'
+    " line-based text motion
+    silent exe "normal! '[V']y"
+  elseif a:type == 'block'
+    " block-based text motion
+    silent exe "normal! `[\<C-V>`]y"
+  else
+    " char-based text motion
+    silent exe "normal! `[v`]y"
+  endif
+  " call the user-defined function, passing it the contents of the unnamed register
+  let repl = s:{a:algorithm}(@@)
+  " if the function returned a value, then replace the text
+  if type(repl) == 1
+    " put the replacement text into the unnamed register, and also set it to be a
+    " characterwise, linewise, or blockwise selection, based upon the selection type of the
+    " yank we did above
+    call setreg('@', repl, getregtype('@'))
+    " relect the visual region and paste
+    normal! gvp
+  endif
+  " restore saved settings and register value
+  let @@ = reg_save
+  let &selection = sel_save
+  let &clipboard = cb_save
+endfunction
+
+function! s:ActionOpfunc(type)
+  return s:DoAction(s:encode_algorithm, a:type)
+endfunction
+
+function! s:ActionSetup(algorithm)
+  let s:encode_algorithm = a:algorithm
+  let &opfunc = matchstr(expand('<sfile>'), '<SNR>\d\+_').'ActionOpfunc'
+endfunction
+function! MapAction(algorithm, key)
+  exe 'nnoremap <silent> <Plug>actions'    .a:algorithm.' :<C-U>call <SID>ActionSetup("'.a:algorithm.'")<CR>g@'
+  exe 'xnoremap <silent> <Plug>actions'    .a:algorithm.' :<C-U>call <SID>DoAction("'.a:algorithm.'",visualmode())<CR>'
+  exe 'nnoremap <silent> <Plug>actionsLine'.a:algorithm.' :<C-U>call <SID>DoAction("'.a:algorithm.'",v:count1)<CR>'
+  exe 'nmap '.a:key.'  <Plug>actions'.a:algorithm
+  exe 'xmap '.a:key.'  <Plug>actions'.a:algorithm
+  exe 'nmap '.a:key.a:key[strlen(a:key)-1].' <Plug>actionsLine'.a:algorithm
+endfunction
+
+" }
+
+" Computes the md5 of the object string
+function! s:ComputeMD5(str)
+  let out = system('md5sum |cut -b 1-32', a:str)
+  " Remove trailing newline.
+  let out = substitute(out, '\n$', '', '')
+  return out
+endfunction
+call MapAction('ComputeMD5','<leader>M')
+" }
 " }
 
 " Tab y configuración global {
@@ -86,21 +161,20 @@ imap jw <Esc>:w<CR>a
 imap jk <Esc>:w<CR>
 " }}
 
-" Resize options {{
+" Resize options {
 nnoremap <silent> <Leader>eh :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>rh :exe "resize " . (winheight(0) * 2/3)<CR>
 nnoremap <silent> <Leader>ev :exe "vertical resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>rv :exe "vertical resize " . (winheight(0) * 2/3)<CR>
-" }}
+" }
 
 "Ejecuta el archivo actual con ,r
 nnoremap <leader>r :!%:p<CR>
 command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
 
-"" Switch to alternate file
-map <leader>h :bnext<cr>
-map <leader>l :bprevious<cr>"
 
+" Limpia el signColumn
+nmap <leader>ts :SignifyToggle<CR>:SyntasticToggleMode<CR>
 
 "nnoremap g^ gUiW
 "nnoremap gv guiW
@@ -129,7 +203,6 @@ hi Normal ctermbg=none
 " Match pairing http://stackoverflow.com/questions/10746750/set-vim-bracket-highlighting-colors
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 " }
-
 " Per file config {
 
 " GIT {
@@ -137,7 +210,6 @@ au FileType gitcommit set fileencoding=utf8
 set diffopt+=vertical
 set scrolloff=10
 " }
-
 " Tex{
 
 augroup TexConfig
@@ -146,7 +218,6 @@ augroup TexConfig
 augroup END
 " Disable conceallevel (reemplazar letras por su versión formateada)
 " }
-
 " Vimwiki {
 " See http://stackoverflow.com/questions/1313171/vim-combining-autocmd
 augroup VimwikiAutowrite
@@ -159,13 +230,18 @@ augroup VimwikiAutowrite
 augroup END
 
 "}
-
 " Markdown {
 au FileType markdown set wrap
 au FileType markdown set textwidth=80
 " }
+" Js {
+au FileType javascript set tabstop=2 shiftwidth=2 expandtab smarttab
+au FileType javascript set iskeyword-=.
 " }
-
+" HTML {
+au FileType html set tabstop=2 shiftwidth=2 expandtab smarttab
+" }
+" }
 " Plugins: {
 
 " Plugin: Prompline {
@@ -186,7 +262,6 @@ au FileType markdown set textwidth=80
 "\'z'    : [ "$(date '+%a %d %b %r')" ]}
 
 " }
-
 " Plugin: LatexBox {
 "" Latexbox options
 let g:LatexBox_quickfix = 1
@@ -197,12 +272,11 @@ let g:LatexBox_build_dir = "target"
 let g:LatexBox_Folding = 1
 let g:PreviewBrowsers = "xdg-open"
 " }
-
 " Plugin: Startify {
 "" Cabecera y pie:
 let g:startify_custom_header =
             \ map(split(system('fortune | cowsay -f $(ls /usr/share/cows/ | shuf -n1)'), '\n'), '"   ". v:val') + ['']
-let g:startify_bookmarks = [ '~/.vimrc.local', 
+let g:startify_bookmarks = [ '~/.vimrc.local',
             \ '~/.vimrc.bundles.local' ]
 autocmd User Startified setlocal cursorline
 let g:startify_skiplist = [
@@ -220,35 +294,29 @@ highlight StartifySlash   ctermfg=240
 highlight StartifySpecial ctermfg=240
 
 " }
-
 " Plugin: Peekaboo {
 let g:peekaboo_window = 'rightbelow 30new'
 
 "}
-
 " Plugin: Ack vim {
 if executable('ag')
     let g:ackprg = 'ag --nogroup --nocolor --column'
 endif
 " }
-
 " Plugin: AutoPairs  {
 let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutBackInsert = '<M-b>'
 
 " }
-
 " Plugin: Sayonara {
 " Close buffer with gs
 nnoremap gs :Sayonara<cr>
 nnoremap gS :Sayonara!<cr>
 " }
-
 " Plugin: NeoComplCache {
 let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_underbar_completion = 0
 " }
-
 " Plugin: easymotion {
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
@@ -261,15 +329,42 @@ map  N <Plug>(easymotion-prev)
 "map <Leader>h <Plug>(easymotion-linebackward)
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 " }
-
 " Plugin: syntastic {
 let g:syntastic_java_checkers = ['']
 let g:syntastic_always_populate_loc_list = 1
-" }
+"let g:syntastic_check_on_open = 1
 
+
+highlight SyntasticErrorSign        cterm=bold ctermbg=none  ctermfg=227
+highlight SyntasticWarningSign      cterm=bold ctermbg=none  ctermfg=167
+highlight SyntasticStyleErrorSign   cterm=bold ctermbg=none  ctermfg=167
+highlight SyntasticStyleWarningSign cterm=bold ctermbg=none  ctermfg=227
+" }
+" Plugin: signify {
+highlight clear SignColumn
+
+let g:signify_sign_color_inherit_from_linenr = 1
+let g:signify_sign_weight = 'NONE'
+highlight clear SignColumn
+highlight DiffAdd           cterm=bold ctermbg=none ctermfg=119
+highlight DiffDelete        cterm=bold ctermbg=none ctermfg=167
+highlight DiffChange        cterm=bold ctermbg=none ctermfg=227
+highlight SignifySignAdd    cterm=bold ctermbg=none  ctermfg=119
+highlight SignifySignDelete cterm=bold ctermbg=none  ctermfg=167
+highlight SignifySignChange cterm=bold ctermbg=none  ctermfg=227
+
+" }
+" Plugin: bufferline {
+let g:bufferline_echo = 1
+" }
+" Plugin: ctrp {
+let g:ctrlp_match_window = 'bottom,order:ttb,min:5,max:10,results:10'
+" }
+" Plugin: ctrp-funky {
+let g:ctrlp_funky_syntax_highlight = 1
+let g:ctrlp_funky_use_cache = 1
 " }
 " Bugs ZONE
-
 " Fix some problems with the <esc> key {
 let g:spf13_no_omni_complete = 0
 imap <Esc> <Esc><Esc><Esc>

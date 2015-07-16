@@ -57,3 +57,4 @@ UnBundle 'vim-scripts/SQLUtilities'
 " Test 
 "Bundle 'mattn/webapi-vim'
 Bundle 'cirla/vim-giphy'
+Plugin 'diepm/vim-rest-console'

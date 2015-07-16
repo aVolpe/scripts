@@ -15,8 +15,10 @@ eclipseaction eclipsenextmember org.eclipse.jdt.ui.edit.text.java.goto.next.memb
 nnoremap ]] :eclipsenextmember<cr>
 eclipseaction eclipseprevmember org.eclipse.jdt.ui.edit.text.java.goto.previous.member
 nnoremap [[ :eclipseprevmember<cr>
-" }
 
+org.eclipse.jdt.ui.edit.text.java.toggle.comment
+org.eclipse.wst.jsdt.ui.edit.text.java.toggle.comment
+" }
 " Configuración Global {
 " See http://vrapper.sourceforge.net/documentation/?topic=configuration
 set ignorecase
@@ -29,7 +31,6 @@ set autochdir
 set contentassistmode
 set clipboard=unnamed,unnamedplus
 " }
-
 " Server maps {
 eclipseaction runOnServer org.eclipse.debug.ui.commands.RunLast
 eclipseaction fullPublish org.jboss.ide.eclipse.as.wtp.ui.fullPublishCommand
@@ -37,7 +38,6 @@ eclipseaction fullPublish org.jboss.ide.eclipse.as.wtp.ui.fullPublishCommand
 map <SPACE>rd :runOnServer<CR>
 map <SPACE>rf :fullPublish<CR>
 " }
-
 " Debug {
 eclipseaction toggle org.eclipse.debug.ui.commands.ToggleBreakpoint
 nmap <SPACE>dt :toggle

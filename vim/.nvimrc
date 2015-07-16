@@ -111,6 +111,7 @@ let g:NERDCustomDelimiters = {
     hi SpellBad cterm=underline,bold ctermfg=red
     " Transparent background
     hi Normal ctermbg=none
+    set cursorline
     syntax on
 " }
 " Per file configuration {
@@ -157,6 +158,9 @@ au FileType markdown set wrap
 au FileType markdown set textwidth=80
 au FileType markdown noremap <F5> :PreviewMarkdown<CR>
 " }
+" JavaScript {
+au FileType js set shiftwidth=2
+" }
 au BufRead,BufNewFile .vrapperrc setfiletype vim
 " }
 "Clipboard configuration {
@@ -187,6 +191,12 @@ set nopaste
 set nonumber
 
 set fileencodings=ucs-bom,utf8,prc
+
+" Undo {
+set undodir=~/.nvimundo
+set undofile
+set undolevels=1000 "maximum number of changes that can be undone
+set undoreload=10000 "maximum number lines to save for undo on a buffer reload
 " }
 " Maps útiles {
 nnoremap K i<CR><Esc>

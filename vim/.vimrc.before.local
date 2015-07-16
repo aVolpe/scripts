@@ -11,13 +11,36 @@ let g:spf13_bundle_groups=['general', 'writing', 'neocomplcache', 'programming',
 
 " Plugin: airline {
 
-let g:airline_section_z = '%{strftime("%c")}'
+let g:airline_section_y = '%{strftime("%H:%M")}'
+let g:airline#extensions#syntastic#enabled = 0
+let g:airline#extensions#tagbar#enabled = 0
+let g:airline#extensions#hunks#enabled = 0
+
+
+let g:airline_theme='badwolf'
+
+let g:airline_powerline_fonts = 1
+
+let g:airline#extensions#bufferline#enabled = 0
+
 let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#tab_nr_type = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+nmap g1 <Plug>AirlineSelectTab1
+nmap g2 <Plug>AirlineSelectTab2
+nmap g3 <Plug>AirlineSelectTab3
+nmap g4 <Plug>AirlineSelectTab4
+nmap g5 <Plug>AirlineSelectTab5
+nmap g6 <Plug>AirlineSelectTab6
+nmap g7 <Plug>AirlineSelectTab7
+nmap g8 <Plug>AirlineSelectTab8
+nmap g9 <Plug>AirlineSelectTab9
 " }
 
 let g:indent_guides_enable_on_vim_startup = 0
 let g:tagbar_ctags_bin='/usr/bin/ctags'
 
+" Configuración de Vimwiki {
 let wikiroot = '~/.dropbox/Dropbox/'
 let wiki = {}
 let wiki.path = wikiroot . '/wiki/'
@@ -28,25 +51,16 @@ let wiki.template_path = wiki.path  . '/template/'
 let wiki.template_default = 'default'
 let wiki.template_ext = '.htm'
 
-augroup RemapVimWikiToggle
-    autocmd FileType tex nmap <silent><buffer> <leader>e <Plug>VimwikiToggleListItem
-    autocmd FileType tex vmap <silent><buffer> <leader>e <Plug>VimwikiToggleListItem
-augroup END
-
 let g:vimwiki_list = [ wiki ]
 let g:vimwiki_rxTableSep = '|'
 let g:vimwiki_folding = 'expr'
+" }
 
 autocmd FileType zsh setlocal syntax=shell
 autocmd FileType tex set wrap
 autocmd FileType tex set textwidth=80
-"Hay que remapear <M-i> a toda costa, por que <M-i>=é
-"Por defecto para archivos latex, apunta a <Plug>Tex_insertitemonthisline
-"
-"autocmd FileType tex imap <buffer> <C-i> <Plug>Tex_InsertItemOnThisLine 
-
 autocmd FileType tex map \gq ?^$\\|^\s*\(\\begin\\|\\end\\|\\label\)?1<CR>gq//-1<CR>
-"autocmd FileType tex unmap <buffer> <leader>it
+
 
 
 
