@@ -80,3 +80,5 @@ PATH="~/.gem/ruby/2.1.0/bin:$PATH"
 setopt correct_all
 source ~/scripts/zsh/completition/tmuxinator.zsh
 #source ~/.zsh_prompt.sh
+#
+bindkey "^Q" push-input
