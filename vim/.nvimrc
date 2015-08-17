@@ -185,7 +185,7 @@ set mouse=                          " Disable mouse
 set shiftwidth=4                    " Use indents of 4 spaces
 set expandtab                       " Tabs are spaces, not tabs
 set tabstop=4                       " An indentation every four columns
-set nolist                          " Hide not printable characters 
+set nolist                          " Hide not printable characters
 set softtabstop=4                   " Let backspace delete indent
 set nopaste
 set nonumber

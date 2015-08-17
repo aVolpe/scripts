@@ -154,20 +154,25 @@ set spelllang=es,en
 
 " Maps útiles {
 nnoremap K i<CR><Esc>
+map <leader>dt :%s/\s\+$//g<CR>:w<CR>
 
 " Navegación {{
 imap jj <Esc><Esc><Esc>
 imap jw <Esc>:w<CR>a
 imap jk <Esc>:w<CR>
 " }}
-
 " Resize options {
 nnoremap <silent> <Leader>eh :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>rh :exe "resize " . (winheight(0) * 2/3)<CR>
-nnoremap <silent> <Leader>ev :exe "vertical resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> <Leader>rv :exe "vertical resize " . (winheight(0) * 2/3)<CR>
+nnoremap <silent> <Leader>ev :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
+nnoremap <silent> <Leader>rv :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
 " }
-
+" Hora {
+nnoremap <F8> "=strftime("%H:%M")<CR>P
+nnoremap <F9> "=strftime("%Y%m%d")<CR>P
+inoremap <F8> <C-R>=strftime("%H:%M")<CR>
+inoremap <F9> <C-R>=strftime("%Y%m%d")<CR>
+" }
 "Ejecuta el archivo actual con ,r
 nnoremap <leader>r :!%:p<CR>
 command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
@@ -175,11 +180,6 @@ command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=h
 
 " Limpia el signColumn
 nmap <leader>ts :SignifyToggle<CR>:SyntasticToggleMode<CR>
-
-"nnoremap g^ gUiW
-"nnoremap gv guiW
-"nunmap g^ gUiW
-"nunmap gv guiW
 
 " }
 
@@ -357,8 +357,16 @@ highlight SignifySignChange cterm=bold ctermbg=none  ctermfg=227
 " Plugin: bufferline {
 let g:bufferline_echo = 1
 " }
+" Plugin NerdCommenter {
+
+let g:NERDCustomDelimiters = {
+  \ 'rest': { 'left': '# ' },
+\ }
+
+" }
 " Plugin: ctrp {
 let g:ctrlp_match_window = 'bottom,order:ttb,min:5,max:10,results:10'
+let g:ctrlp_extensions = ['funky', 'yankring']
 " }
 " Plugin: ctrp-funky {
 let g:ctrlp_funky_syntax_highlight = 1
@@ -370,3 +378,4 @@ let g:spf13_no_omni_complete = 0
 imap <Esc> <Esc><Esc><Esc>
 " }
 
+set cursorline

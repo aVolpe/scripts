@@ -1,7 +1,7 @@
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
 
 " Hacer que el espacio sea el leader {
-let g:spf13_leader = ' ' 
+let g:spf13_leader = ' '
 nnoremap <SPACE> <Nop>
 "}
 
@@ -64,5 +64,3 @@ autocmd FileType tex map \gq ?^$\\|^\s*\(\\begin\\|\\end\\|\\label\)?1<CR>gq//-1
 
 
 
-nnoremap <F8> "=strftime("%H:%M")<CR>P
-inoremap <F8> <C-R>=strftime("%H:%M")<CR>

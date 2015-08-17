@@ -15,7 +15,7 @@ UnBundle 'vim-scripts/Latex-Text-Formatter'
 
 Bundle 'tpope/vim-unimpaired'
 Bundle 'ivalkeen/vim-simpledb'
-Bundle 'gcavallanti/vim-noscrollbar'
+UnBundle 'gcavallanti/vim-noscrollbar'
 
 "Varios
 Bundle 'mattn/flappyvird-vim'
@@ -44,6 +44,7 @@ UnBundle 'edkolev/promptline.vim'
 
 "" REST client.
 UnBundle 'nicwest/QQ.vim'
+Bundle 'diepm/vim-rest-console'
 
 ""Varios
 UnBundle 'derekwyatt/vim-scala'
@@ -56,5 +57,10 @@ UnBundle 'vim-scripts/SQLUtilities'
 
 " Test 
 "Bundle 'mattn/webapi-vim'
-Bundle 'cirla/vim-giphy'
-Plugin 'diepm/vim-rest-console'
+UnBundle 'cirla/vim-giphy'
+
+Bundle 'sgur/ctrlp-extensions.vim'
+Bundle 'mickaobrien/vim-stackoverflow'
+
+" Reddit
+Plugin 'joshhartigan/vim-reddit'

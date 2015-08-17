@@ -45,3 +45,4 @@ xrandr --output VGA-1-2 --off
 xrandr --output VGA-1-1 --off
 
 rm /tmp/relax_*
+sudo mount /dev/sdb1 /home/avolpe/datos3
