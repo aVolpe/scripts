@@ -12,7 +12,7 @@ require 'fileutils'
 
 
 $HOME_DIRECTORY = Array["/home/avolpe/develop/servidores/jboss-as-7.1.1.Final/standalone/deployments"]
-$INTACTOS = Array["pos"]
+$INTACTOS = Array["pos", "sql"]
 
 $JBOSS_PROCESS_ID = `ps -eF | grep jboss | grep server | tr -s " " | cut -d " " -f2 | xargs kill -9`
 puts "Servidor parado"
@@ -23,12 +23,12 @@ $HOME_DIRECTORY.each { | directory |
 	puts "Eliminar archivos."
 	puts "\tOmitiendo archivos que empiezan con #{$INTACTOS}"
 	Dir.chdir(directory)
-	Dir.foreach(directory) { | file | 
+	Dir.foreach(directory) { | file |
 		if (file == "." || file == "..")
 			next
 		end
 		match = false
-		
+
 		$INTACTOS.each { | intacto |
 			if (file.match(/^#{intacto}/)) then
 				match = true

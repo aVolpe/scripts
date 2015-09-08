@@ -14,7 +14,8 @@ Bundle 'LaTeX-Box-Team/LaTeX-Box'
 UnBundle 'vim-scripts/Latex-Text-Formatter'
 
 Bundle 'tpope/vim-unimpaired'
-Bundle 'ivalkeen/vim-simpledb'
+UnBundle 'ivalkeen/vim-simpledb'
+Bundle 'avolpe/vim-simpledb'
 UnBundle 'gcavallanti/vim-noscrollbar'
 
 "Varios

@@ -82,3 +82,7 @@ source ~/scripts/zsh/completition/tmuxinator.zsh
 #source ~/.zsh_prompt.sh
 #
 bindkey "^Q" push-input
+
+# Configuración de fzf
+export FZF_DEFAULT_COMMAND='ag -l -g ""'
+export ANDROID_HOME=~/develop/librerias/android/android-sdk-linux/
