@@ -16,8 +16,8 @@ nnoremap ]] :eclipsenextmember<cr>
 eclipseaction eclipseprevmember org.eclipse.jdt.ui.edit.text.java.goto.previous.member
 nnoremap [[ :eclipseprevmember<cr>
 
-org.eclipse.jdt.ui.edit.text.java.toggle.comment
-org.eclipse.wst.jsdt.ui.edit.text.java.toggle.comment
+"org.eclipse.jdt.ui.edit.text.java.toggle.comment
+"org.eclipse.wst.jsdt.ui.edit.text.java.toggle.comment
 " }
 " Configuración Global {
 " See http://vrapper.sourceforge.net/documentation/?topic=configuration

@@ -61,7 +61,13 @@ UnBundle 'vim-scripts/SQLUtilities'
 UnBundle 'cirla/vim-giphy'
 
 Bundle 'sgur/ctrlp-extensions.vim'
-Bundle 'mickaobrien/vim-stackoverflow'
+UnBundle 'mickaobrien/vim-stackoverflow'
 
 " Reddit
-Plugin 'joshhartigan/vim-reddit'
+UnBundle 'joshhartigan/vim-reddit'
+
+" Navegación
+Plugin 't9md/vim-choosewin'
+
+" Blog
+Plugin 'PProvost/vim-markdown-jekyll'

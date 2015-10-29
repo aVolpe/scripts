@@ -55,11 +55,11 @@ export EDITOR=vim
 
 # Customize to your needs...
 
-export MAN_POSIXLY_CORRECT=1 
+export MAN_POSIXLY_CORRECT=1
 
 #[ -f ~/.last_dir ] && cd `cat ~/.last_dir`
 
-LS_COLORS="$LS_COLORS:di=0;91:ln=4"  ; export LS_COLORS
+LS_COLORS="$LS_COLORS:di=1;92:ln=4:tw=4;35:ow=1;35:"  ; export LS_COLORS
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
@@ -86,3 +86,8 @@ bindkey "^Q" push-input
 # Configuración de fzf
 export FZF_DEFAULT_COMMAND='ag -l -g ""'
 export ANDROID_HOME=~/develop/librerias/android/android-sdk-linux/
+
+# Arregla los colores del auto complete
+zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
+autoload -Uz compinit
+compinit
