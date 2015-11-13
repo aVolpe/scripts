@@ -71,3 +71,5 @@ Plugin 't9md/vim-choosewin'
 
 " Blog
 Plugin 'PProvost/vim-markdown-jekyll'
+
+Plugin 'zenorocha/dracula-theme', {'rtp': 'vim/'}
