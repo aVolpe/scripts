@@ -1,25 +1,20 @@
 #!/bin/bash
 
-#sleep 5
-#conky -c ~/.conky/V2/conkyrc &
-
 cd ~
 
 day=`date +%a`
 hour=`date +%H`
-#echo $day
-#echo $hour
 
 rm ~/.last_login
 
 function home() {
     echo "Home";
-    sh ~/scripts/home.sh > ~/.last_login;
+    sh ~/.scripts/home.sh > ~/.last_login;
 }
 
 function place1() {
     echo "Facultad";
-    sh ~/scripts/facu.sh > ~/.last_login;
+    sh ~/.scripts/facu.sh > ~/.last_login;
 }
 
 function not_weekend () {
@@ -31,18 +26,12 @@ function not_weekend () {
     esac
 }
 
-#case $day in
-    #S*)
-        #home;;
-    #*)
-        #not_weekend;;
-#esac
-
 home
-#sleep 3
-#feh --bg-scale /usr/share/wallpapers/openSUSEdefault/contents/images/1920x1080.jpg
+
 xrandr --output VGA-1-2 --off
 xrandr --output VGA-1-1 --off
 
+nohup /opt/custom/programs/keynav/keynav &
 rm /tmp/relax_*
-sudo mount /dev/sdb1 /home/avolpe/datos3
+echo "Montando datos"
+sudo mount /dev/sdb1 /home/avolpe/datos

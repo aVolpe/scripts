@@ -22,4 +22,3 @@ nohup google-chrome 'http://inbox.google.com/' 'http://www.stackoverflow.com/' &
 #yakuake-session -t 'WIKI' -q -e vim ~/.dropbox/Dropbox/wiki/index.wiki
 #yakuake-session -t 'CenterIM' -q -e centerim5
 rm ~/.last_dir
-nohup programs/keynav/keynav &

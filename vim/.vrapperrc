@@ -42,3 +42,10 @@ map <SPACE>rf :fullPublish<CR>
 eclipseaction toggle org.eclipse.debug.ui.commands.ToggleBreakpoint
 nmap <SPACE>dt :toggle
 " }
+" Plugins {
+" Cambio de Tab {
+nnoremap gt <C-W>gt
+nnoremap gT <C-W>gT
+"}
+"}
+

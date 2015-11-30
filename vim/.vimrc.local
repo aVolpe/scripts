@@ -156,11 +156,11 @@ set spelllang=es,en
 nnoremap K i<CR><Esc>
 map <leader>dt :%s/\s\+$//g<CR>:w<CR>
 
-" Navegación {{
+" Navegación {
 imap jj <Esc><Esc><Esc>
 imap jw <Esc>:w<CR>a
 imap jk <Esc>:w<CR>
-" }}
+" }
 " Resize options {
 nnoremap <silent> <Leader>eh :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>rh :exe "resize " . (winheight(0) * 2/3)<CR>
@@ -203,16 +203,6 @@ augroup END
 au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 let g:indent_guides_enable_on_vim_startup = 0
 
-" Colorscheme {
-colorscheme hybrid
-set background=dark
-hi clear SpellBad
-hi SpellBad cterm=underline,bold ctermfg=red
-" Transparent background
-hi Normal ctermbg=none
-" Match pairing http://stackoverflow.com/questions/10746750/set-vim-bracket-highlighting-colors
-hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
-" }
 " Per file config {
 
 " GIT {
@@ -235,6 +225,7 @@ augroup VimwikiAutowrite
     au FileType vimwiki set nowritebackup
     au FileType vimwiki set noswapfile
     au FileType vimwiki set autowrite
+    au FileType vimwiki syntax on
     au FocusLost *.wiki :w
     au FileType vimwiki set autowrite
 augroup END
@@ -394,4 +385,15 @@ let g:spf13_no_omni_complete = 0
 imap <Esc> <Esc><Esc><Esc>
 " }
 
+" Colorscheme {
+colorscheme hybrid
+set background=dark
+hi clear SpellBad
+hi SpellBad cterm=underline,bold ctermfg=red
+" Transparent background
+hi Normal ctermbg=none
+" Match pairing http://stackoverflow.com/questions/10746750/set-vim-bracket-highlighting-colors
+hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
+syntax on
 set cursorline
+" }

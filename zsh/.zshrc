@@ -75,10 +75,13 @@ LS_COLORS="$LS_COLORS:di=1;92:ln=4:tw=4;35:ow=1;35:"  ; export LS_COLORS
 	#fi
 #fi
 
-PATH="~/.gem/ruby/2.1.0/bin:$PATH"
+PATH=$PATH:/usr/local/bin/
+if which ruby >/dev/null && which gem >/dev/null; then
+    PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+fi
 
 setopt correct_all
-source ~/scripts/zsh/completition/tmuxinator.zsh
+#source ~/.scripts/zsh/completition/tmuxinator.zsh
 #source ~/.zsh_prompt.sh
 #
 bindkey "^Q" push-input
