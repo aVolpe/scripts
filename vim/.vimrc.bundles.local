@@ -73,3 +73,25 @@ Plugin 't9md/vim-choosewin'
 Plugin 'PProvost/vim-markdown-jekyll'
 
 Plugin 'zenorocha/dracula-theme', {'rtp': 'vim/'}
+
+
+UnBundle 'rhysd/conflict-marker.vim'
+UnBundle 'scrooloose/nerdtree'
+UnBundle 'jistr/vim-nerdtree-tabs'
+
+
+UnBundle 'tpope/vim-rails'
+UnBundle 'rust-lang/rust.vim'
+UnBundle 'tpope/vim-haml'
+UnBundle 'jmanoel7/vim-games'
+UnBundle 'mattn/webapi-vim'
+UnBundle 'mattn/gist-vim'
+UnBundle 'tpope/vim-commentary'
+UnBundle 'mattn/flappyvird-vim'
+
+UnBundle 'amirh/HTML-AutoCloseTag'
+Plugin 'ypid/HTML-AutoCloseTag', { 'name' : 'newAutoCloseTag' }
+
+UnBundle 'mhinz/vim-signify'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'burnettk/vim-angular'

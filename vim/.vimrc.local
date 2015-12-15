@@ -238,9 +238,24 @@ au FileType markdown set textwidth=80
 " Js {
 au FileType javascript set tabstop=2 shiftwidth=2 expandtab smarttab
 au FileType javascript set iskeyword-=.
+au FileType javascript set foldmethod=manual
+au FileType javascript set noautochdir
+
+au FileType javascript let g:javascript_conceal=1
+au FileType javascript set cole=1
+au FileType javascript let g:javascript_conceal_function   = "ƒ"
+au FileType javascript let g:javascript_conceal_null       = "ø"
+au FileType javascript let g:javascript_conceal_this       = "@"
+au FileType javascript let g:javascript_conceal_return     = "⇚"
+au FileType javascript let g:javascript_conceal_undefined  = "¿"
+au FileType javascript let g:javascript_conceal_NaN        = "ℕ"
+au FileType javascript let g:javascript_conceal_prototype  = "¶"
+au FileType javascript let g:javascript_conceal_static     = "•"
+au FileType javascript let g:javascript_conceal_super      = "Ω"
 " }
 " HTML {
 au FileType html set tabstop=2 shiftwidth=2 expandtab smarttab
+au FileType html set foldmethod=manual
 " }
 " }
 " Plugins: {
@@ -394,6 +409,37 @@ hi SpellBad cterm=underline,bold ctermfg=red
 hi Normal ctermbg=none
 " Match pairing http://stackoverflow.com/questions/10746750/set-vim-bracket-highlighting-colors
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
+
 syntax on
 set cursorline
+
+" Configurar conceal color {
+hi clear Conceal
+hi Conceal ctermfg=yellow ctermbg=NONE
+"}
+
+hi clear SignColumn
+highlight GitGutterAdd ctermfg=green ctermbg=NONE
+highlight GitGutterChange ctermfg=yellow ctermbg=NONE
+highlight GitGutterDelete ctermfg=red ctermbg=NONE
+highlight GitGutterChangeDelete ctermfg=yellow ctermbg=NONE
+
+set fillchars+=vert:│
+" Plugin: signify {
+highlight clear SignColumn
+
+let g:gitgutter_realtime = 0
+let g:gitgutter_eager = 0
+
+let g:signify_sign_color_inherit_from_linenr = 1
+let g:signify_sign_weight = 'NONE'
+highlight clear SignColumn
+highlight DiffAdd           cterm=bold ctermbg=none ctermfg=119
+highlight DiffDelete        cterm=bold ctermbg=none ctermfg=167
+highlight DiffChange        cterm=bold ctermbg=none ctermfg=227
+highlight SignifySignAdd    cterm=bold ctermbg=none  ctermfg=119
+highlight SignifySignDelete cterm=bold ctermbg=none  ctermfg=167
+highlight SignifySignChange cterm=bold ctermbg=none  ctermfg=227
+
+" }
 " }
