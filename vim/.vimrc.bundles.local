@@ -94,4 +94,15 @@ Plugin 'ypid/HTML-AutoCloseTag', { 'name' : 'newAutoCloseTag' }
 
 UnBundle 'mhinz/vim-signify'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'burnettk/vim-angular'
+UnBundle 'burnettk/vim-angular'
+
+UnBundle 'groenewege/vim-less'
+
+" Matemática
+Plugin 'wgurecky/vimSum'
+
+" es demasiado lento
+UnBundle 'hail2u/vim-css3-syntax'
+
+" Seleccionar un argumento
+Plugin 'vim-scripts/argtextobj.vim'

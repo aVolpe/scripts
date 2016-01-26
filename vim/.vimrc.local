@@ -200,6 +200,7 @@ augroup FixFileType
     au BufNewFile,BufRead *.cs set foldmethod=syntax
 augroup END
 
+vmap ,x :!tidy -q -i --show-errors 0<CR>
 au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 let g:indent_guides_enable_on_vim_startup = 0
 
@@ -255,7 +256,6 @@ au FileType javascript let g:javascript_conceal_super      = "Ω"
 " }
 " HTML {
 au FileType html set tabstop=2 shiftwidth=2 expandtab smarttab
-au FileType html set foldmethod=manual
 " }
 " }
 " Plugins: {
@@ -347,6 +347,7 @@ let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 " }
 " Plugin: syntastic {
 let g:syntastic_java_checkers = ['']
+let g:syntastic_html_checkers = ['']
 let g:syntastic_always_populate_loc_list = 1
 "let g:syntastic_check_on_open = 1
 

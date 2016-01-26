@@ -74,7 +74,7 @@ echo
 
 if [[ $PLACE != $SINGLE ]] 
 then
-    echo xrandr --output LVDS1 --mode 1366x768 --pos 0x0 --auto --output $VGA --mode $RES --pos "$OFFSET" --primary --auto
+    xrandr --output LVDS1 --mode 1366x768 --pos 0x0 --auto --output $VGA --mode $RES --pos "$OFFSET" --primary --auto
 else
 	xrandr --output LVDS1 --mode 1366x768 --auto --primary
 fi
