@@ -43,7 +43,7 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git zsh-syntax-highlighting colored-man alias-tips command-not-found mvn suse)
 
-export PATH=/bin/:/usr/bin/
+export PATH=$PATH:/bin/:/usr/bin/
 
 source $ZSH/oh-my-zsh.sh
 
@@ -94,3 +94,5 @@ export ANDROID_HOME=~/develop/librerias/android/android-sdk-linux/
 zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
 autoload -Uz compinit
 compinit
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting

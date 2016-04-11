@@ -106,3 +106,9 @@ UnBundle 'hail2u/vim-css3-syntax'
 
 " Seleccionar un argumento
 Plugin 'vim-scripts/argtextobj.vim'
+
+" test
+Plugin 'onur/vim-motivate'
+Plugin 'ekalinin/Dockerfile.vim'
+
+Plugin 'othree/html5.vim'
