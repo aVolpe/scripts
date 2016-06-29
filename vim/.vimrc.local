@@ -57,6 +57,7 @@ vnoremap <F3> :call SumFunc()<CR>
 vnoremap <F4> :call PromFunc()<CR>
 noremap <F5> :PreviewMarkdown<CR>
 " }
+"
 " TextObject functions {
 " Funciones internas {
 " Adapted from unimpaired.vim by Tim Pope.
@@ -147,9 +148,8 @@ set nonumber
 set fileencodings=ucs-bom,utf8,prc
 set spell
 set spelllang=es,en
+set nospell
 
-"set shell=/usr/bin/zsh\ -i
-"set shellcmdflag+=i
 "}
 
 " Maps útiles {
@@ -160,6 +160,7 @@ map <leader>dt :%s/\s\+$//g<CR>:w<CR>
 imap jj <Esc><Esc><Esc>
 imap jw <Esc>:w<CR>a
 imap jk <Esc>:w<CR>
+imap kj <Esc>:w<CR>
 " }
 " Resize options {
 nnoremap <silent> <Leader>eh :exe "resize " . (winheight(0) * 3/2)<CR>
@@ -233,8 +234,13 @@ augroup END
 
 "}
 " Markdown {
-au FileType markdown set wrap
-au FileType markdown set textwidth=80
+augroup MarkdownConfiguration
+    au FileType markdown set wrap
+    au FileType markdown set textwidth=80
+    au FileType markdown set spell
+    au FileType markdown hi clear SpellBad
+    au FileType markdown hi SpellBad cterm=underline
+augroup END
 " }
 " Js {
 au FileType javascript set tabstop=2 shiftwidth=2 expandtab smarttab
@@ -253,9 +259,23 @@ au FileType javascript let g:javascript_conceal_NaN        = "ℕ"
 au FileType javascript let g:javascript_conceal_prototype  = "¶"
 au FileType javascript let g:javascript_conceal_static     = "•"
 au FileType javascript let g:javascript_conceal_super      = "Ω"
+au FileType javascript set nospell
+" }
+" Ts {
+au FileType typescript set tabstop=2 shiftwidth=2 expandtab smarttab
+au FileType typescript set iskeyword-=.
+au FileType typescript set foldmethod=manual
+au FileType typescript set noautochdir
+au FileType typescript let g:tsuquyomi_completion_detail = 1
+au FileType typescript setlocal completeopt+=menu,preview
+
+au FileType typescript set nospell
 " }
 " HTML {
 au FileType html set tabstop=2 shiftwidth=2 expandtab smarttab
+au FileType html set noautochdir
+au FileType html runtime macros/matchit.vim
+
 " }
 " }
 " Plugins: {
@@ -366,9 +386,9 @@ highlight clear SignColumn
 highlight DiffAdd           cterm=bold ctermbg=none ctermfg=119
 highlight DiffDelete        cterm=bold ctermbg=none ctermfg=167
 highlight DiffChange        cterm=bold ctermbg=none ctermfg=227
-highlight SignifySignAdd    cterm=bold ctermbg=none  ctermfg=119
-highlight SignifySignDelete cterm=bold ctermbg=none  ctermfg=167
-highlight SignifySignChange cterm=bold ctermbg=none  ctermfg=227
+highlight SignifySignAdd    cterm=bold ctermbg=none ctermfg=119
+highlight SignifySignDelete cterm=bold ctermbg=none ctermfg=167
+highlight SignifySignChange cterm=bold ctermbg=none ctermfg=227
 
 " }
 " Plugin: bufferline {
@@ -395,17 +415,29 @@ let g:ctrlp_funky_use_cache = 1
 nmap - <Plug>(choosewin)
 let g:choosewin_overlay_enable = 1
 " }
-" Bugs ZONE
-" Fix some problems with the <esc> key {
-let g:spf13_no_omni_complete = 0
-imap <Esc> <Esc><Esc><Esc>
+" Plugin: editorconfig-vim {
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 " }
-
+" Plugin: rainbow {
+let g:rainbow_conf = {
+\   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+\   'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+\   'operators': '_,_',
+\   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+\   'separately': {
+\       '*': {},
+\       'html': 0
+\   }
+\}
+" }
+" }
 " Colorscheme {
 colorscheme hybrid
 set background=dark
-hi clear SpellBad
-hi SpellBad cterm=underline,bold ctermfg=red
+
+augroup ConfigureSpell
+augroup END
+
 " Transparent background
 hi Normal ctermbg=none
 " Match pairing http://stackoverflow.com/questions/10746750/set-vim-bracket-highlighting-colors
@@ -438,9 +470,12 @@ highlight clear SignColumn
 highlight DiffAdd           cterm=bold ctermbg=none ctermfg=119
 highlight DiffDelete        cterm=bold ctermbg=none ctermfg=167
 highlight DiffChange        cterm=bold ctermbg=none ctermfg=227
-highlight SignifySignAdd    cterm=bold ctermbg=none  ctermfg=119
-highlight SignifySignDelete cterm=bold ctermbg=none  ctermfg=167
-highlight SignifySignChange cterm=bold ctermbg=none  ctermfg=227
+highlight SignifySignAdd    cterm=bold ctermbg=none ctermfg=119
+highlight SignifySignDelete cterm=bold ctermbg=none ctermfg=167
+highlight SignifySignChange cterm=bold ctermbg=none ctermfg=227
 
 " }
+"set number
+"set relativenumber
+set noautochdir
 " }

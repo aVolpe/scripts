@@ -179,7 +179,7 @@ set iskeyword-=#                    " '#' is an end of word designator
 set iskeyword-=-                    " '-' is an end of word designator
 set splitright
 set splitbelow
-set autochdir
+set noautochdir
 
 set mouse=                          " Disable mouse
 set shiftwidth=4                    " Use indents of 4 spaces
