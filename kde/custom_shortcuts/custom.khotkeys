@@ -47,7 +47,7 @@ Comment=Simple_action
 TriggersCount=1
 
 [Data_1_1_1Triggers0]
-Key=Meta+Shift+Left
+Key=Meta+Left
 Type=SHORTCUT
 Uuid={c3fc0547-65d4-4db5-a271-7bef5d67c43f}
 
@@ -61,7 +61,7 @@ Type=SIMPLE_ACTION_DATA
 ActionsCount=1
 
 [Data_1_1_2Actions0]
-CommandURL=sh /home/avolpe/scripts/cmus/play_music.sh
+CommandURL=sh /home/avolpe/.scripts/cmus/play_music.sh
 Type=COMMAND_URL
 
 [Data_1_1_2Conditions]
@@ -73,7 +73,7 @@ Comment=Simple_action
 TriggersCount=1
 
 [Data_1_1_2Triggers0]
-Key=Meta+Shift+P
+Key=Meta+P
 Type=SHORTCUT
 Uuid={db88b379-f9c6-417f-8a11-18b23454a1ef}
 
@@ -99,7 +99,7 @@ Comment=Simple_action
 TriggersCount=1
 
 [Data_1_1_3Triggers0]
-Key=Meta+Shift+Right
+Key=Meta+Right
 Type=SHORTCUT
 Uuid={29d0fffa-1f3a-439d-900d-93ec5216afb4}
 
@@ -113,7 +113,7 @@ Type=SIMPLE_ACTION_DATA
 ActionsCount=1
 
 [Data_1_1_4Actions0]
-CommandURL=sh ~/scripts/scripts/show_current.sh
+CommandURL=sh ~/.scripts/scripts/show_current.sh
 Type=COMMAND_URL
 
 [Data_1_1_4Conditions]
@@ -133,7 +133,7 @@ Uuid={4d5de500-5388-431c-baca-bca0e1304caa}
 Comment=Comment
 DataCount=3
 Enabled=true
-Name=Volume
+Name=Programs
 SystemGroup=0
 Type=ACTION_DATA_GROUP
 
@@ -144,14 +144,14 @@ ConditionsCount=0
 [Data_1_2_1]
 Comment=Comment
 Enabled=true
-Name=increase_volume
+Name=Search
 Type=SIMPLE_ACTION_DATA
 
 [Data_1_2_1Actions]
 ActionsCount=1
 
 [Data_1_2_1Actions0]
-CommandURL=qdbus org.kde.kmix /kmix/KMixWindow/actions/increase_volume org.qtproject.Qt.QAction.trigger
+CommandURL=sh ~/scripts/search_selected.sh
 Type=COMMAND_URL
 
 [Data_1_2_1Conditions]
@@ -163,21 +163,21 @@ Comment=Simple_action
 TriggersCount=1
 
 [Data_1_2_1Triggers0]
-Key=Meta+Shift+Up
+Key=Meta+Shift+S
 Type=SHORTCUT
-Uuid={7f356197-7122-49ed-86fd-983511d0ee0a}
+Uuid={48172cc0-c3c5-4ff4-a4e2-9ab99a984f35}
 
 [Data_1_2_2]
 Comment=Comment
 Enabled=true
-Name=decrease_volume
+Name=Show Eclipse
 Type=SIMPLE_ACTION_DATA
 
 [Data_1_2_2Actions]
 ActionsCount=1
 
 [Data_1_2_2Actions0]
-CommandURL=qdbus org.kde.kmix /kmix/KMixWindow/actions/decrease_volume org.qtproject.Qt.QAction.trigger
+CommandURL=sh /home/avolpe/.scripts/toggle.sh 'Java' ~/programs/IDE/mars/start.sh
 Type=COMMAND_URL
 
 [Data_1_2_2Conditions]
@@ -189,21 +189,21 @@ Comment=Simple_action
 TriggersCount=1
 
 [Data_1_2_2Triggers0]
-Key=Meta+Shift+Down
+Key=Meta+Shift+E
 Type=SHORTCUT
-Uuid={3e02be8e-8f1f-445e-a8c9-be87fb6794ff}
+Uuid={f9631f0c-b669-49aa-a950-35de7e16489b}
 
 [Data_1_2_3]
 Comment=Comment
 Enabled=true
-Name=mute
+Name=Google chrome
 Type=SIMPLE_ACTION_DATA
 
 [Data_1_2_3Actions]
 ActionsCount=1
 
 [Data_1_2_3Actions0]
-CommandURL=qdbus org.kde.kmix /kmix/KMixWindow/actions/mute org.qtproject.Qt.QAction.trigger\n
+CommandURL=sh /home/avolpe/.scripts/toggle.sh 'Google Chrome' google-chrome
 Type=COMMAND_URL
 
 [Data_1_2_3Conditions]
@@ -215,101 +215,37 @@ Comment=Simple_action
 TriggersCount=1
 
 [Data_1_2_3Triggers0]
-Key=Meta+Shift+M
+Key=Meta+Shift+G
 Type=SHORTCUT
-Uuid={398ee655-40a6-4c48-8c61-6367957dfd92}
+Uuid={804fe6cc-7bb0-470c-9a4e-2d980861206e}
 
 [Data_1_3]
 Comment=Comment
-DataCount=3
 Enabled=true
-Name=Programs
-SystemGroup=0
-Type=ACTION_DATA_GROUP
+Name=Spectate
+Type=SIMPLE_ACTION_DATA
+
+[Data_1_3Actions]
+ActionsCount=1
+
+[Data_1_3Actions0]
+CommandURL=/usr/bin/spectacle
+Type=COMMAND_URL
 
 [Data_1_3Conditions]
 Comment=
 ConditionsCount=0
 
-[Data_1_3_1]
-Comment=Comment
-Enabled=true
-Name=Show Eclipse
-Type=SIMPLE_ACTION_DATA
-
-[Data_1_3_1Actions]
-ActionsCount=1
-
-[Data_1_3_1Actions0]
-CommandURL=sh /home/avolpe/scripts/toggle.sh 'Java' ~/IDE/eclipse/eclipse
-Type=COMMAND_URL
-
-[Data_1_3_1Conditions]
-Comment=
-ConditionsCount=0
-
-[Data_1_3_1Triggers]
+[Data_1_3Triggers]
 Comment=Simple_action
 TriggersCount=1
 
-[Data_1_3_1Triggers0]
-Key=Meta+Shift+E
+[Data_1_3Triggers0]
+Key=Print
 Type=SHORTCUT
-Uuid={f12d675b-e82f-4396-9695-ed6520e65194}
-
-[Data_1_3_2]
-Comment=Comment
-Enabled=true
-Name=Show Chrome
-Type=SIMPLE_ACTION_DATA
-
-[Data_1_3_2Actions]
-ActionsCount=1
-
-[Data_1_3_2Actions0]
-CommandURL=sh /home/avolpe/scripts/toggle.sh 'Google Chrome' google-chrome
-Type=COMMAND_URL
-
-[Data_1_3_2Conditions]
-Comment=
-ConditionsCount=0
-
-[Data_1_3_2Triggers]
-Comment=Simple_action
-TriggersCount=1
-
-[Data_1_3_2Triggers0]
-Key=Meta+Shift+G
-Type=SHORTCUT
-Uuid={845f3a30-7289-48c3-b9fc-3467e55e3abc}
-
-[Data_1_3_3]
-Comment=Comment
-Enabled=true
-Name=Search
-Type=SIMPLE_ACTION_DATA
-
-[Data_1_3_3Actions]
-ActionsCount=1
-
-[Data_1_3_3Actions0]
-CommandURL=sh ~/scripts/search_selected.sh
-Type=COMMAND_URL
-
-[Data_1_3_3Conditions]
-Comment=
-ConditionsCount=0
-
-[Data_1_3_3Triggers]
-Comment=Simple_action
-TriggersCount=1
-
-[Data_1_3_3Triggers0]
-Key=Meta+Shift+S
-Type=SHORTCUT
-Uuid={48172cc0-c3c5-4ff4-a4e2-9ab99a984f35}
+Uuid={ca37d5a6-ed9e-4a14-aae0-c8dbf3dd9d74}
 
 [Main]
-AllowMerge=true
+AllowMerge=false
 ImportId=1
 Version=2

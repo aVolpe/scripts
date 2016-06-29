@@ -41,7 +41,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git zsh-syntax-highlighting colored-man alias-tips command-not-found mvn suse)
+plugins=(zsh-syntax-highlighting zsh-alias-tips mvn suse docker docker-compose)
 
 export PATH=$PATH:/bin/:/usr/bin/
 
@@ -50,8 +50,6 @@ source $ZSH/oh-my-zsh.sh
 fpath=(/home/avolpe/.oh-my-zsh/custom/autocomplete/zsh-completions-master/src/ $fpath)
 rm -f ~/.zcompdump; compinit
 export EDITOR=vim
-
-#mwiki() { dig +short txt "$*".wp.dg.cx; }
 
 # Customize to your needs...
 
@@ -63,27 +61,12 @@ LS_COLORS="$LS_COLORS:di=1;92:ln=4:tw=4;35:ow=1;35:"  ; export LS_COLORS
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
-#if [ -f ~/.proxy_status ]
-#then
-	#WITH_PROXY=`cat ~/.proxy_status`
-	#echo $WITH_PROXY
-	#if [ "$WITH_PROXY" = "WITHOUT PROXY" ]
-	#then
-		#. ~/scripts/unset_proxy > /dev/null
-	#else
-		#. ~/scripts/export_proxy avolpe asdaed > /dev/null
-	#fi
-#fi
-
 PATH=$PATH:/usr/local/bin/
 if which ruby >/dev/null && which gem >/dev/null; then
     PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
 fi
 
 setopt correct_all
-#source ~/.scripts/zsh/completition/tmuxinator.zsh
-#source ~/.zsh_prompt.sh
-#
 bindkey "^Q" push-input
 
 # Configuración de fzf
@@ -91,8 +74,9 @@ export FZF_DEFAULT_COMMAND='ag -l -g ""'
 export ANDROID_HOME=~/develop/librerias/android/android-sdk-linux/
 
 # Arregla los colores del auto complete
-zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
-autoload -Uz compinit
-compinit
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+export LD_LIBRARY_PATH=/usr/lib/perl5/5.22.1/x86_64-linux-thread-multi/CORE/
+
+skip_global_compinit=1
