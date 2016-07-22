@@ -43,7 +43,7 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(zsh-syntax-highlighting zsh-alias-tips mvn suse docker docker-compose)
 
-export PATH=$PATH:/bin/:/usr/bin/
+export PATH=$PATH:/bin/:/usr/bin/:/home/avolpe/programs/node/bin/
 
 source $ZSH/oh-my-zsh.sh
 
@@ -74,6 +74,9 @@ export FZF_DEFAULT_COMMAND='ag -l -g ""'
 export ANDROID_HOME=~/develop/librerias/android/android-sdk-linux/
 
 # Arregla los colores del auto complete
+#zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
+#autoload -Uz compinit
+#compinit
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
