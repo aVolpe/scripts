@@ -20,5 +20,5 @@ fi
 echo "Searching... '$1'"
 rm mp3.mp3
 youtube-dl --extract-audio --audio-format mp3 "gvsearch1:$1" --output mp3.mp3
-mplayer mp3.mp3 -loop 0
+ffplay mp3.mp3 -autoexit
 
