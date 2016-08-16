@@ -80,6 +80,7 @@ export ANDROID_HOME=~/develop/librerias/android/android-sdk-linux/
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
+export NODE_PATH=/opt/custom/programs/node/lib/node_modules
 export LD_LIBRARY_PATH=/usr/lib/perl5/5.22.1/x86_64-linux-thread-multi/CORE/
 
 skip_global_compinit=1

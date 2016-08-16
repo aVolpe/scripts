@@ -1,0 +1,57 @@
+# ~/.tmuxinator/christian.yml
+
+name: christian
+root: ~/develop/cds/hospital/
+
+# Optional tmux socket
+# socket_name: foo
+
+# Runs before everything. Use it to start daemons etc.
+pre: sudo systemctl start postgresql
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+# pre_window:
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# tmux_command: byobu
+
+# Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
+startup_window: editor
+
+# Controls whether the tmux session should be attached to automatically. Defaults to true.
+# attach: false
+
+# Runs after everything. Use it to attach to tmux with custom options etc.
+# post: tmux -CC attach -t christian
+
+windows:
+  - editor:
+      layout: main-vertical
+      panes:
+        - vim: 
+          - cd christian-docker/fe
+          - vim .
+  - java:
+      layout: main-vertical
+      panes:
+      - vim:
+        - cd arquillian
+        - git status
+  - server:
+      layout : even-horizontal
+      panes  :
+      - docker:
+        - cd christian-docker
+        - docker-compose up redis
+      - grunt:
+        - cd christian-docker/fe
+        - grunt serve
+  - remote-server:
+      layout: main-vertical
+      panes:
+      - remote:
+        - ssh hospital
+        - docker exec christiandocker_wildfly_1 tailf  /opt/jboss/wildfly/standalone/log/server.log
