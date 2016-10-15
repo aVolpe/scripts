@@ -7,12 +7,11 @@ nnoremap <SPACE> <Nop>
 
 " Configuración general SPF13 {
 let g:spf13_bundle_groups=['general', 'writing', 'neocomplcache', 'programming', 'ruby', 'python', 'javascript', 'html', 'misc']
-let g:spf13_no_autochdir = 1
 " }
 
 " Plugin: airline {
 
-"let g:airline_section_y = '%{strftime("%H:%M")}'
+let g:airline_section_y = '%{strftime("%H:%M")}'
 let g:airline#extensions#syntastic#enabled = 0
 let g:airline#extensions#tagbar#enabled = 0
 let g:airline#extensions#hunks#enabled = 0
