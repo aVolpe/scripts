@@ -1,85 +1,33 @@
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
 
 "Vimwiki
-Bundle 'vimwiki/vimwiki'
 
 " Plugins no utilizados
 UnBundle 'cespare/vim-toml'
 UnBundle 'reedes/vim-wordy'
 UnBundle 'reedes/vim-litecorrect'
-
-"
-"Latex
-Bundle 'LaTeX-Box-Team/LaTeX-Box'
 UnBundle 'vim-scripts/Latex-Text-Formatter'
-
-Bundle 'tpope/vim-unimpaired'
 UnBundle 'ivalkeen/vim-simpledb'
-Bundle 'avolpe/vim-simpledb'
 UnBundle 'gcavallanti/vim-noscrollbar'
-
-"Varios
-Bundle 'mattn/flappyvird-vim'
-Bundle 'jmanoel7/vim-games'
-
-Bundle 'mhinz/vim-startify'
-
-" Utiliza @ y " como accesos directos para mostrar
-" Los registros.
-Bundle 'junegunn/vim-peekaboo'
-
-" Permite cerrar el buffer actual.
-Bundle 'mhinz/vim-sayonara'
-
-
-" Plugins innecesarios "
-"" Interesante, pero no hay que usar vim como un IDE
+UnBundle 'mattn/flappyvird-vim'
+UnBundle 'jmanoel7/vim-games'
+UnBundle 'mhinz/vim-sayonara'
 UnBundle 'vim-voom/VOoM'
-
-"" Interesante, pero no funciona con proxy, ni con 
-"" Vimrc tan complicados
 UnBundle 'danchoi/vmail'
-
-"" ZSH command line (no se usa)
 UnBundle 'edkolev/promptline.vim'
-
-"" REST client.
 UnBundle 'nicwest/QQ.vim'
-Bundle 'diepm/vim-rest-console'
-
-""Varios
 UnBundle 'derekwyatt/vim-scala'
 UnBundle 'derekwyatt/vim-sbt'
 UnBundle 'itchyny/calendar.vim'
 UnBundle 'mattn/calendar-vim'
-
+UnBundle 'cirla/vim-giphy'
 UnBundle 'godlygeek/csapprox'
 UnBundle 'vim-scripts/SQLUtilities'
-
-" Test 
-"Bundle 'mattn/webapi-vim'
-UnBundle 'cirla/vim-giphy'
-
-Bundle 'sgur/ctrlp-extensions.vim'
 UnBundle 'mickaobrien/vim-stackoverflow'
-
-" Reddit
 UnBundle 'joshhartigan/vim-reddit'
-
-" Navegación
-Plugin 't9md/vim-choosewin'
-
-" Blog
-Plugin 'PProvost/vim-markdown-jekyll'
-
-Plugin 'zenorocha/dracula-theme', {'rtp': 'vim/'}
-
-
 UnBundle 'rhysd/conflict-marker.vim'
 UnBundle 'scrooloose/nerdtree'
 UnBundle 'jistr/vim-nerdtree-tabs'
-
-
 UnBundle 'tpope/vim-rails'
 UnBundle 'rust-lang/rust.vim'
 UnBundle 'tpope/vim-haml'
@@ -88,27 +36,29 @@ UnBundle 'mattn/webapi-vim'
 UnBundle 'mattn/gist-vim'
 UnBundle 'tpope/vim-commentary'
 UnBundle 'mattn/flappyvird-vim'
-
 UnBundle 'amirh/HTML-AutoCloseTag'
-Plugin 'ypid/HTML-AutoCloseTag', { 'name' : 'newAutoCloseTag' }
-
 UnBundle 'mhinz/vim-signify'
-Plugin 'airblade/vim-gitgutter'
 UnBundle 'burnettk/vim-angular'
-
 UnBundle 'groenewege/vim-less'
-
-" Matemática
-Plugin 'wgurecky/vimSum'
-
-" es demasiado lento
 UnBundle 'hail2u/vim-css3-syntax'
+UnBundle 'othree/html5.vim'
 
-" Seleccionar un argumento
+Plugin 'diepm/vim-rest-console'
+Plugin 'vimwiki/vimwiki'
+Plugin 'LaTeX-Box-Team/LaTeX-Box'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'avolpe/vim-simpledb'
+Plugin 'mhinz/vim-startify'
+Plugin 'junegunn/vim-peekaboo'
+Plugin 'sgur/ctrlp-extensions.vim'
+Plugin 't9md/vim-choosewin'
+Plugin 'PProvost/vim-markdown-jekyll'
+Plugin 'zenorocha/dracula-theme', {'rtp': 'vim/'}
+Plugin 'ypid/HTML-AutoCloseTag', { 'name' : 'newAutoCloseTag' }
+Plugin 'airblade/vim-gitgutter'
+Plugin 'wgurecky/vimSum'
 Plugin 'vim-scripts/argtextobj.vim'
-
-" test
 Plugin 'onur/vim-motivate'
 Plugin 'ekalinin/Dockerfile.vim'
 
-Plugin 'othree/html5.vim'
+Plugin 'posva/vim-vue'

@@ -28,14 +28,23 @@ startup_window: editor
 # post: tmux -CC attach -t christian
 
 windows:
+  - editor:
+    layout: main-vertical
+    panes:
+      - vim:
+        - cd mapa-fe
+        - vim .
   - java:
       layout: main-vertical
       panes:
       - vim:
-        - cd ~/develop/cds/essap/mapa-docker/mapa-be/
+        - cd mapa-be
         - git status
   - server:
       layout : even-horizontal
       panes  :
       - docker:
         - docker-compose up db nginx redis pictshare
+      - grunt:
+        - cd mapa-fe
+        - gulp serve

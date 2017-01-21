@@ -43,3 +43,12 @@ windows:
       layout : even-horizonal
       panes :
       - vim ~/config.properties
+  - client:
+      layout: event-horizontal
+      panes:
+      - code:
+        - cd ../ionic-test
+        - git status
+      - server:
+        - cd ../ionic-test
+        - ionic serve
