@@ -199,6 +199,8 @@ augroup FixFileType
     au BufRead,BufNewFile *.md set filetype=markdown
     au BufRead,BufNewFile *.tex set filetype=tex
     au BufNewFile,BufRead *.cs set foldmethod=syntax
+    au BufNewFile,BufRead *.wiki AirlineToggle
+    au BufNewFile,BufRead *.wiki AirlineToggle
 augroup END
 
 vmap ,x :!tidy -q -i --show-errors 0<CR>
@@ -230,6 +232,9 @@ augroup VimwikiAutowrite
     au FileType vimwiki syntax on
     au FocusLost *.wiki :w
     au FileType vimwiki set autowrite
+    au FileType vimwiki set spell
+    au FileType vimwiki hi clear SpellBad
+    au FileType vimwiki hi SpellBad cterm=underline ctermfg=red
 augroup END
 
 "}
@@ -239,7 +244,7 @@ augroup MarkdownConfiguration
     au FileType markdown set textwidth=80
     au FileType markdown set spell
     au FileType markdown hi clear SpellBad
-    au FileType markdown hi SpellBad cterm=underline
+    au FileType markdown hi SpellBad cterm=underline ctermfg=red
 augroup END
 " }
 " Js {
@@ -475,7 +480,5 @@ highlight SignifySignDelete cterm=bold ctermbg=none ctermfg=167
 highlight SignifySignChange cterm=bold ctermbg=none ctermfg=227
 
 " }
-"set number
-"set relativenumber
 set noautochdir
 " }

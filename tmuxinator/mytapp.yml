@@ -32,7 +32,7 @@ windows:
       layout: main-vertical
       panes:
       - vim:
-        - cd server-side
+        - cd ../server
         - git status
   - server:
       layout : even-horizontal

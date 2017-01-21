@@ -41,7 +41,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(zsh-syntax-highlighting zsh-alias-tips mvn suse docker docker-compose zsh-autosuggestions)
+plugins=(zsh-syntax-highlighting zsh-alias-tips mvn git docker docker-compose zsh-autosuggestions)
 
 export PATH=$PATH:/bin/:/usr/bin/:/home/avolpe/programs/node/bin/
 
@@ -71,7 +71,7 @@ bindkey "^Q" push-input
 
 # Configuración de fzf
 export FZF_DEFAULT_COMMAND='ag -l -g ""'
-export ANDROID_HOME=~/develop/librerias/android/android-sdk-linux/
+export ANDROID_HOME=~/Library/Android/sdk/
 
 # Arregla los colores del auto complete
 #zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
