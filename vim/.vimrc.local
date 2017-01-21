@@ -2,59 +2,6 @@
 
 "FUNCTIONS {
 " Matemática {
-fu! SumFunc() range
-    let old = @a
-    normal gv"ay
-    let sel=@a
-    let @a=old
-    let t:r=0
-    try
-        exe 'let t:r = ' . join(split(sel,'\n'), '+')
-        " call append(a:lastline, printf("Sum: %.02f", res))
-    catch
-        return -1
-    endtry
-    echo t:r
-    let @" = t:r
-    return 0
-endfu
-
-fu! PromFunc() range
-    let old = @a
-    normal gv"ay
-    let sel=@a
-    let @a=old
-    let t:r=0.0
-    let t:c=0.0
-    try
-        exe 'let t:r = ' . join(split(sel,'\n'), '+')
-        let t:c = len(split(sel, '\n'))
-    catch
-        return -1
-    endtry
-    let t:r = t:r * 1.0
-    let t:c = t:c * 1.0
-    echo t:r
-    echo t:c
-    echo "--"
-    let t:r = t:r / (1.0 * t:c)
-    echo t:r
-    let @" = string(t:r)
-    return 0
-endfu
-
-function! RenameFile()
-    let old_name = expand('%')
-    let new_name = input('New file name: ', expand('%'), 'file')
-    if new_name != '' && new_name != old_name
-        exec ':saveas ' . new_name
-        exec ':silent !rm ' . old_name
-        redraw!
-    endif
-endfunction
-map <leader>R :call RenameFile()<cr>
-vnoremap <F3> :call SumFunc()<CR>
-vnoremap <F4> :call PromFunc()<CR>
 noremap <F5> :PreviewMarkdown<CR>
 " }
 "
@@ -179,9 +126,6 @@ nnoremap <leader>r :!%:p<CR>
 command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
 
 
-" Limpia el signColumn
-nmap <leader>ts :SignifyToggle<CR>:SyntasticToggleMode<CR>
-
 " Abre un archivo usando ranger con <leader>x
 function RangerExplorer()
     exec "silent !ranger --choosefile=/tmp/vim_ranger_current_file " . expand("%:p:h")
@@ -207,12 +151,14 @@ vmap ,x :!tidy -q -i --show-errors 0<CR>
 au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 let g:indent_guides_enable_on_vim_startup = 0
 
-" Per file config {
+set diffopt+=vertical
+set scrolloff=10
+
+" Per file configuration {
 
 " GIT {
 au FileType gitcommit set fileencoding=utf8
-set diffopt+=vertical
-set scrolloff=10
+au FileType gitcommit set spell
 " }
 " Tex{
 
@@ -228,13 +174,19 @@ augroup VimwikiAutowrite
     au FileType vimwiki set nobackup
     au FileType vimwiki set nowritebackup
     au FileType vimwiki set noswapfile
-    au FileType vimwiki set autowrite
     au FileType vimwiki syntax on
-    au FocusLost *.wiki :w
     au FileType vimwiki set autowrite
     au FileType vimwiki set spell
     au FileType vimwiki hi clear SpellBad
     au FileType vimwiki hi SpellBad cterm=underline ctermfg=red
+    au FocusLost *.wiki :w
+    au FileType vimwiki set expandtab
+    au FileType vimwiki set tabstop=2
+    au FileType vimwiki set softtabstop=2
+    au FileType vimwiki set shiftwidth=2
+    au FileType vimwiki setlocal number
+    au FileType vimwiki setlocal relativenumber
+    au FileType * call FixColorscheme()
 augroup END
 
 "}
@@ -273,8 +225,12 @@ au FileType typescript set foldmethod=manual
 au FileType typescript set noautochdir
 au FileType typescript let g:tsuquyomi_completion_detail = 1
 au FileType typescript setlocal completeopt+=menu,preview
-
 au FileType typescript set nospell
+
+au FileType vue set noautochdir
+" }
+" Ts {
+au FileType yaml set tabstop=2 shiftwidth=2 expandtab smarttab
 " }
 " HTML {
 au FileType html set tabstop=2 shiftwidth=2 expandtab smarttab
@@ -284,25 +240,15 @@ au FileType html runtime macros/matchit.vim
 " }
 " }
 " Plugins: {
-
-" Plugin: Prompline {
-"function! Noscrollbar(...)
-"""let w:airline_section_z = '%{noscrollbar#statusline(9,'' '',''█'',[''▐''],[''▌''])}'
-"""let w:airline_section_z = '%{noscrollbar#statusline(9,''-'',''='')}'
-"""let w:airline_section_z = '%{noscrollbar#statusline(10,'' '',''॥'')}'
-"let w:airline_section_z = '%{noscrollbar#statusline(15,'' '',''█'',[''▐''],[''▌''])}'
-"""let w:airline_section_z = '%{noscrollbar#statusline(9,''■'',''◫'',[''◧''],[''◨''])}'
+"function! AirlineInit()
+call airline#parts#define_raw('linenr', '%l')
+call airline#parts#define_raw('linet', '%L')
+call airline#parts#define_accent('linenr', 'bold')
+call airline#parts#define_accent('linet', 'bold')
+let g:airline_section_z = airline#section#create(['%3p%% ', 'linenr', '/', 'linet', ':%c'])
 "endfunction
-"call airline#add_statusline_func('Noscrollbar')
+"autocmd VimEnter * call AirlineInit()
 
-
-"let g:promptline_preset = {
-"\'b'    : [ promptline#slices#cwd() ],
-"\'warn' : [ promptline#slices#last_exit_code() ],
-"\'x'    : [ promptline#slices#vcs_branch() ],
-"\'z'    : [ "$(date '+%a %d %b %r')" ]}
-
-" }
 " Plugin: LatexBox {
 "" Latexbox options
 let g:LatexBox_quickfix = 1
@@ -337,22 +283,16 @@ highlight StartifySpecial ctermfg=240
 " }
 " Plugin: Peekaboo {
 let g:peekaboo_window = 'rightbelow 30new'
-
 "}
 " Plugin: Ack vim {
 if executable('ag')
-    let g:ackprg = 'ag --nogroup --nocolor --column'
+    let g:ackprg = 'git --no-pager grep -n'
 endif
 " }
 " Plugin: AutoPairs  {
 let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutBackInsert = '<M-b>'
 
-" }
-" Plugin: Sayonara {
-" Close buffer with gs
-nnoremap gs :Sayonara<cr>
-nnoremap gS :Sayonara!<cr>
 " }
 " Plugin: NeoComplCache {
 let g:neocomplcache_enable_camel_case_completion = 1
@@ -363,11 +303,6 @@ map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 map  n <Plug>(easymotion-next)
 map  N <Plug>(easymotion-prev)
-"" Navegación con espacio l
-"map <Leader>l <Plug>(easymotion-lineforward)
-"map <Leader>j <Plug>(easymotion-j)
-"map <Leader>k <Plug>(easymotion-k)
-"map <Leader>h <Plug>(easymotion-linebackward)
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 " }
 " Plugin: syntastic {
@@ -414,8 +349,6 @@ let g:ctrlp_extensions = ['funky', 'yankring']
 let g:ctrlp_funky_syntax_highlight = 1
 let g:ctrlp_funky_use_cache = 1
 " }
-" Plugin: simple-db {
-" }
 " Plugin: choosewin {
 nmap - <Plug>(choosewin)
 let g:choosewin_overlay_enable = 1
@@ -437,19 +370,30 @@ let g:rainbow_conf = {
 " }
 " }
 " Colorscheme {
-colorscheme hybrid
-set background=dark
 
-augroup ConfigureSpell
+function! FixColorscheme() " {
+    hi! clear SpellBad
+    hi! SpellBad cterm=underline,bold ctermfg=blue
+
+    " Transparent background
+    hi! Normal ctermbg=none
+    " Match pairing http://stackoverflow.com/questions/10746750/set-vim-bracket-highlighting-colors
+    hi! MatchParen cterm=bold ctermbg=none ctermfg=magenta
+endfunction
+" }
+augroup mycolorschemes
+    au!
+    au ColorScheme * hi clear SpellBad
+    au ColorScheme * call FixColorscheme()
 augroup END
-
-" Transparent background
-hi Normal ctermbg=none
-" Match pairing http://stackoverflow.com/questions/10746750/set-vim-bracket-highlighting-colors
-hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 
 syntax on
 set cursorline
+
+"let g:hybrid_custom_term_colors = 1
+
+colorscheme hybrid
+set background=dark
 
 " Configurar conceal color {
 hi clear Conceal

@@ -7,12 +7,10 @@ nnoremap <SPACE> <Nop>
 
 " Configuración general SPF13 {
 let g:spf13_bundle_groups=['general', 'writing', 'neocomplcache', 'programming', 'ruby', 'python', 'javascript', 'html', 'misc']
-let g:spf13_no_autochdir = 1
 " }
 
 " Plugin: airline {
 
-"let g:airline_section_y = '%{strftime("%H:%M")}'
 let g:airline#extensions#syntastic#enabled = 0
 let g:airline#extensions#tagbar#enabled = 0
 let g:airline#extensions#hunks#enabled = 0
@@ -20,11 +18,9 @@ let g:airline#extensions#bufferline#enabled = 0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 
-
 let g:airline_theme='badwolf'
 let g:airline_powerline_fonts = 1
 
-" }
 
 let g:indent_guides_enable_on_vim_startup = 0
 let g:tagbar_ctags_bin='/usr/bin/ctags'
@@ -33,6 +29,16 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 let g:airline_symbols.space = "\ua0"
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+
+" }
+
 " Configuración de Vimwiki {
 let wikiroot = '~/.dropbox_data/Dropbox/'
 let wiki = {}
@@ -48,6 +54,7 @@ let g:vimwiki_list = [ wiki ]
 let g:vimwiki_rxTableSep = '|'
 let g:vimwiki_folding = 'expr'
 " }
+"
 
 autocmd FileType zsh setlocal syntax=shell
 autocmd FileType tex set wrap
