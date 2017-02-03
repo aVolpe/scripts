@@ -49,6 +49,7 @@ let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'sql' : 'sql'}
 let wiki.template_path = wiki.path  . '/template/'
 let wiki.template_default = 'default'
 let wiki.template_ext = '.htm'
+let wiki.auto_toc = 1
 
 let g:vimwiki_list = [ wiki ]
 let g:vimwiki_rxTableSep = '|'

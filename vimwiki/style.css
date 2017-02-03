@@ -99,7 +99,7 @@ th {
     background-color:#EEE;
 }
 ul {
-    margin-left:2em;
+    /*margin-left:2em;*/
     padding-left:0.5em;
 }
 li {
@@ -154,7 +154,7 @@ nav a:hover {
     background-color:#eee;
 }
 .toc {
-    border:2px dashed #CCC;
+    border:2px #CCC;
     -moz-border-radius:5px;
     border-radius:5px;
     float:right;
@@ -163,12 +163,12 @@ nav a:hover {
     background-color:#eee;
 }
 .toc > ul {
-    list-style-type:none;
-    margin-left:0;
+    /*list-style-type:none;*/
+    margin-left:1em;
     margin-bottom:0.75em;
 }
 .toc > ul > li > ul {
-    margin-left:1.5em;
+    /*margin-left:1.5em;*/
 }
 
 /* Mobile device */

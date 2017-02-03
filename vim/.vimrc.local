@@ -72,7 +72,7 @@ endfunction
 
 " Computes the md5 of the object string
 function! s:ComputeMD5(str)
-  let out = system('md5sum |cut -b 1-32', a:str)
+  let out = system('md5 |cut -b 1-32', a:str)
   " Remove trailing newline.
   let out = substitute(out, '\n$', '', '')
   return out
@@ -240,15 +240,13 @@ au FileType html runtime macros/matchit.vim
 " }
 " }
 " Plugins: {
-"function! AirlineInit()
+"" Plugin: AirlineInit {
 call airline#parts#define_raw('linenr', '%l')
 call airline#parts#define_raw('linet', '%L')
 call airline#parts#define_accent('linenr', 'bold')
 call airline#parts#define_accent('linet', 'bold')
 let g:airline_section_z = airline#section#create(['%3p%% ', 'linenr', '/', 'linet', ':%c'])
-"endfunction
-"autocmd VimEnter * call AirlineInit()
-
+" }
 " Plugin: LatexBox {
 "" Latexbox options
 let g:LatexBox_quickfix = 1
