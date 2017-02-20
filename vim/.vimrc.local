@@ -165,6 +165,9 @@ au FileType gitcommit set spell
 augroup TexConfig
     au FileType tex iab enfemería enfermería
     au FileType tex set conceallevel=0
+    au FileType tex set textwidth=80
+    au FileType tex map \gq ?^$\\|^\s*\(\\begin\\|\\end\\|\\label\)?1<CR>gq//-1<CR>
+    au FileType tex set wrap
 augroup END
 " Disable conceallevel (reemplazar letras por su versión formateada)
 " }
@@ -186,6 +189,7 @@ augroup VimwikiAutowrite
     au FileType vimwiki set shiftwidth=2
     au FileType vimwiki setlocal number
     au FileType vimwiki setlocal relativenumber
+    au FileType vimwiki AirlineRefresh
     au FileType * call FixColorscheme()
 augroup END
 
@@ -229,8 +233,11 @@ au FileType typescript set nospell
 
 au FileType vue set noautochdir
 " }
-" Ts {
+" Yaml {
 au FileType yaml set tabstop=2 shiftwidth=2 expandtab smarttab
+" }
+" ZSH {
+    au FileType zsh setlocal syntax=shell
 " }
 " HTML {
 au FileType html set tabstop=2 shiftwidth=2 expandtab smarttab
@@ -259,8 +266,14 @@ let g:PreviewBrowsers = "xdg-open"
 " }
 " Plugin: Startify {
 "" Cabecera y pie:
-let g:startify_custom_header =
-            \ map(split(system('fortune | cowsay -f $(ls /usr/share/cows/ | shuf -n1)'), '\n'), '"   ". v:val') + ['']
+
+function! s:filter_header(lines) abort
+    let longest_line   = max(map(copy(a:lines), 'strwidth(v:val)'))
+    let centered_lines = map(copy(a:lines),
+        \ 'repeat(" ", (&columns / 2) - (longest_line / 2)) . v:val')
+    return centered_lines
+endfunction
+let g:startify_custom_header = s:filter_header(map(split(system('fortune | cowsay -f $(ls /usr/local/Cellar/cowsay/3.04/share/cows/*.cow | gshuf -n1) | lolcat'), '\n'), '"   ". v:val'))
 let g:startify_bookmarks = [ '~/.vimrc.local',
             \ '~/.vimrc.bundles.local' ]
 autocmd User Startified setlocal cursorline
@@ -365,6 +378,22 @@ let g:rainbow_conf = {
 \       'html': 0
 \   }
 \}
+" }
+" Plugin: Vimwiki {
+let wikiroot              = '~/.dropbox_data/Dropbox/'
+let wiki                  = {}
+let wiki.path             = wikiroot . '/wiki/'
+let wiki.path_html        = wikiroot . '/wiki_html/'
+let wiki.auto_export      = 1
+let wiki.nested_syntaxes  = {'python': 'python', 'c++': 'cpp', 'sql' : 'sql'}
+let wiki.template_path    = wiki.path  . '/template/'
+let wiki.template_default = 'default'
+let wiki.template_ext     = '.htm'
+let wiki.auto_toc         = 1
+
+let g:vimwiki_list = [ wiki ]
+let g:vimwiki_rxTableSep = '|'
+let g:vimwiki_folding = 'expr'
 " }
 " }
 " Colorscheme {

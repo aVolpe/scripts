@@ -4,11 +4,9 @@
 let g:spf13_leader = ' '
 nnoremap <SPACE> <Nop>
 "}
-
 " Configuración general SPF13 {
 let g:spf13_bundle_groups=['general', 'writing', 'neocomplcache', 'programming', 'ruby', 'python', 'javascript', 'html', 'misc']
 " }
-
 " Plugin: airline {
 
 let g:airline#extensions#syntastic#enabled = 0
@@ -38,29 +36,6 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
 " }
-
-" Configuración de Vimwiki {
-let wikiroot = '~/.dropbox_data/Dropbox/'
-let wiki = {}
-let wiki.path = wikiroot . '/wiki/'
-let wiki.path_html = wikiroot . '/wiki_html/'
-let wiki.auto_export = 1
-let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'sql' : 'sql'}
-let wiki.template_path = wiki.path  . '/template/'
-let wiki.template_default = 'default'
-let wiki.template_ext = '.htm'
-let wiki.auto_toc = 1
-
-let g:vimwiki_list = [ wiki ]
-let g:vimwiki_rxTableSep = '|'
-let g:vimwiki_folding = 'expr'
-" }
-"
-
-autocmd FileType zsh setlocal syntax=shell
-autocmd FileType tex set wrap
-autocmd FileType tex set textwidth=80
-autocmd FileType tex map \gq ?^$\\|^\s*\(\\begin\\|\\end\\|\\label\)?1<CR>gq//-1<CR>
 
 
 
