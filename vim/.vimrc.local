@@ -433,6 +433,8 @@ highlight GitGutterChange ctermfg=yellow ctermbg=NONE
 highlight GitGutterDelete ctermfg=red ctermbg=NONE
 highlight GitGutterChangeDelete ctermfg=yellow ctermbg=NONE
 
+hi Visual guifg=white guibg=white gui=none ctermfg=240 ctermbg=250  cterm=none
+
 set fillchars+=vert:│
 " Plugin: signify {
 highlight clear SignColumn
@@ -453,3 +455,4 @@ highlight SignifySignChange cterm=bold ctermbg=none ctermfg=227
 " }
 set noautochdir
 " }
+"

@@ -43,11 +43,9 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(zsh-syntax-highlighting zsh-alias-tips mvn git docker docker-compose zsh-autosuggestions)
 
-export PATH=$PATH:/bin/:/usr/bin/:/home/avolpe/programs/node/bin/
-
 source $ZSH/oh-my-zsh.sh
 
-fpath=(/home/avolpe/.oh-my-zsh/custom/autocomplete/zsh-completions-master/src/ $fpath)
+fpath=($HOME/.oh-my-zsh/custom/autocomplete/zsh-completions-master/src/ $fpath)
 rm -f ~/.zcompdump; compinit
 export EDITOR=vim
 
@@ -61,7 +59,6 @@ LS_COLORS="$LS_COLORS:di=1;92:ln=4:tw=4;35:ow=1;35:"  ; export LS_COLORS
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
-PATH=$PATH:/usr/local/bin/
 if which ruby >/dev/null && which gem >/dev/null; then
     PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
 fi
@@ -78,9 +75,8 @@ export ANDROID_HOME=~/Library/Android/sdk/
 #autoload -Uz compinit
 #compinit
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
-export NODE_PATH=/opt/custom/programs/node/lib/node_modules
-export LD_LIBRARY_PATH=/usr/lib/perl5/5.22.1/x86_64-linux-thread-multi/CORE/
+export PATH="/usr/local/bin:$PATH"
+export PATH="$PATH:$HOME/.rvm/bin:$(yarn global bin)" # Add RVM to PATH for scripting
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=247
 
 skip_global_compinit=1
