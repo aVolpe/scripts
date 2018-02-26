@@ -7,7 +7,6 @@ ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded
 ZSH_THEME="alanpeabody"
 
-
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
@@ -43,40 +42,43 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(zsh-syntax-highlighting zsh-alias-tips mvn git docker docker-compose zsh-autosuggestions)
 
+fpath=($HOME/.oh-my-zsh/custom/autocomplete/zsh-completions-master/src/ $fpath)
+
 source $ZSH/oh-my-zsh.sh
 
-fpath=($HOME/.oh-my-zsh/custom/autocomplete/zsh-completions-master/src/ $fpath)
-rm -f ~/.zcompdump; compinit
 export EDITOR=vim
 
 # Customize to your needs...
 
 export MAN_POSIXLY_CORRECT=1
 
-#[ -f ~/.last_dir ] && cd `cat ~/.last_dir`
+# Only use the last dir if the current dir is home
+[ "${PWD##/Users/arturovolpe/}" "==" "${PWD}" ] && lcd
 
 LS_COLORS="$LS_COLORS:di=1;92:ln=4:tw=4;35:ow=1;35:"  ; export LS_COLORS
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
-if which ruby >/dev/null && which gem >/dev/null; then
-    PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
-fi
+#if which ruby >/dev/null && which gem >/dev/null; then
+    #PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+#fi
 
 setopt correct_all
 bindkey "^Q" push-input
+
 
 # Configuración de fzf
 export FZF_DEFAULT_COMMAND='ag -l -g ""'
 export ANDROID_HOME=~/Library/Android/sdk/
 
-# Arregla los colores del auto complete
-#zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
-#autoload -Uz compinit
-#compinit
 
-export PATH="/usr/local/bin:$PATH"
-export PATH="$PATH:$HOME/.rvm/bin:$(yarn global bin)" # Add RVM to PATH for scripting
+export PATH="/Users/arturovolpe/.gem/ruby/2.4.0:/usr/local/bin:$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=247
 
-skip_global_compinit=1
+export LC_ALL=es_ES.UTF-8
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/arturovolpe/.programs/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/arturovolpe/.programs/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/arturovolpe/.programs/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/arturovolpe/.programs/google-cloud-sdk/completion.zsh.inc'; fi
