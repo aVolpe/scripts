@@ -4,6 +4,7 @@
 
 if [ -z "$1" ] || [ -z "$2" ] ; then
 	echo "Usage: sh toggle.sh 'Window Title' 'Path to program'"
+	exit 1
 fi
 
 wid=`xdotool search --name "$1"`
