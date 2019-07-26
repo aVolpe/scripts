@@ -182,6 +182,7 @@ augroup VimwikiAutowrite
     au FileType vimwiki set spell
     au FileType vimwiki hi clear SpellBad
     au FileType vimwiki hi SpellBad cterm=underline ctermfg=red
+    au FileType vimwiki hi Visual term=reverse cterm=reverse guibg=Grey
     au FocusLost *.wiki :w
     au FileType vimwiki set expandtab
     au FileType vimwiki set tabstop=2
@@ -394,6 +395,9 @@ let wiki.auto_toc         = 1
 let g:vimwiki_list = [ wiki ]
 let g:vimwiki_rxTableSep = '|'
 let g:vimwiki_folding = 'expr'
+" }
+" Plugin: tsuquyomi {
+autocmd FileType typescript setlocal completeopt-=menu
 " }
 " }
 " Colorscheme {

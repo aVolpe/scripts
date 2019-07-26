@@ -40,7 +40,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(zsh-syntax-highlighting zsh-alias-tips mvn git docker docker-compose zsh-autosuggestions)
+plugins=(zsh-syntax-highlighting alias-tips mvn git docker docker-compose zsh-autosuggestions)
 
 fpath=($HOME/.oh-my-zsh/custom/autocomplete/zsh-completions-master/src/ $fpath)
 
@@ -82,3 +82,11 @@ if [ -f '/Users/arturovolpe/.programs/google-cloud-sdk/path.zsh.inc' ]; then sou
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/arturovolpe/.programs/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/arturovolpe/.programs/google-cloud-sdk/completion.zsh.inc'; fi
+
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home
+
+export PATH="${ANDROID_HOME}emulator/:${ANDROID_HOME}platform-tools/:/usr/local/sbin:/usr/local/bin:$HOME/.yarn/bin:$HOME/programs/flutter/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+HISTCONTROL=ignoreboth
