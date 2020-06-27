@@ -202,6 +202,7 @@ augroup MarkdownConfiguration
     au FileType markdown set spell
     au FileType markdown hi clear SpellBad
     au FileType markdown hi SpellBad cterm=underline ctermfg=red
+    au FileType markdown let g:markdown_folding = 1
 augroup END
 " }
 " Js {

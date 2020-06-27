@@ -4,315 +4,267 @@ language en_US
 let g:python2_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/usr/local/bin/python3'
 
-let mapleader = "\<Space>"          " Space the new leader
+let mapleader = " "          " Space the new leader
+noremap K i<CR><Esc>
+map <leader>dt :%s/\s\+$//g<CR>:w<CR>
+set foldlevel=20
 "
+"
+" Plugins config {
+call plug#begin('~/.vim/plugged')
 
-" Plugin: dein {
-"dein Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
-endif
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 
-" Required:
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
-" Required:
-if dein#load_state('~/.cache/dein')
-  call dein#begin('~/.cache/dein')
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript', {'for': 'typescript.tsx'}
+Plug 'w0ng/vim-hybrid'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'vimwiki/vimwiki'
+Plug 'junegunn/fzf', { 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
+Plug 'preservim/nerdcommenter'
+Plug 'aklt/plantuml-syntax'
+Plug 'chrisbra/csv.vim'
 
-  " Let dein manage dein
-  " Required:
-   call dein#add('~/.cache/dein')
-
-  " Add or remove your plugins here:
-  call dein#add('flazz/vim-colorschemes')
-  "call dein#add('Shougo/vimproc.vim',  {'build' : 'make'})
-  call dein#add('tpope/vim-fugitive')
-  call dein#add('tpope/vim-unimpaired')
-  call dein#add('vimwiki/vimwiki')
-  call dein#add('scrooloose/syntastic')
-  call dein#add('godlygeek/tabular')
-  call dein#add('scrooloose/nerdcommenter')
-
-  "call dein#add('leafgarland/typescript-vim')
-  "call dein#add('Quramy/tsuquyomi')
-  call dein#add('Shougo/deoplete.nvim')
-  if !has('nvim')
-      call dein#add('roxma/nvim-yarp')
-      call dein#add('roxma/vim-hug-neovim-rpc')
-  endif
-  call dein#add('Shougo/denite.nvim')
-
-  call dein#add('Shougo/defx.nvim')
-  if !has('nvim')
-      call dein#add('roxma/nvim-yarp')
-      call dein#add('roxma/vim-hug-neovim-rpc')
-  endif
-
-  call dein#add('HerringtonDarkholme/yats.vim')
-  call dein#add('mhartington/nvim-typescript', {'build': './install.sh'})
-
-  call dein#add('vim-airline/vim-airline')
-  call dein#add('vim-airline/vim-airline-themes')
-
-  call dein#add('tpope/vim-surround')
-  call dein#add('ctrlpvim/ctrlp.vim')
-  call dein#add('mhinz/vim-startify')
-  call dein#add('godlygeek/tabular')
-  call dein#add('PProvost/vim-markdown-jekyll')
-  call dein#add('tacahiroy/ctrlp-funky')
-
-  " Required:
-  call dein#end()
-  call dein#save_state()
-endif
-
-let g:deoplete#enable_at_startup = 1
-" Required:
-filetype plugin indent on
-syntax enable
-
-" } End dein Scripts-------------------------
-" Plugin: ctrp {
-let g:ctrlp_match_window = 'bottom,order:ttb,min:5,max:10,results:10'
-"let g:ctrlp_extensions = ['funky', 'yankring']
-let g:ctrlp_extensions = ['funky']
+call plug#end()
 " }
-" Plugin: ctrp-funky {
-let g:ctrlp_funky_syntax_highlight = 1
-let g:ctrlp_funky_use_cache = 1
-nnoremap <Leader>fu :CtrlPFunky<Cr>
-nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-" }
-" Plugin: Syntastic {
+" Useful configs {
+set smartcase           " allows search to be case insensitive until a upper case appear
+set scrolloff=3         " always show 3 lines under the cursor
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab " use a tab as four spaces 
+set clipboard=unnamed
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+set fileencodings=ucs-bom,utf8,prc
+set spell
+set spelllang=es,en
+set nospell
+set history=10000
+set mouse=                      " Disable mouse
 
-let g:syntastic_java_checkers = ['']
 
-let g:airline#extensions#syntastic#enabled = 0
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+"}
+" Theme {
+set background=dark
+set termguicolors
+colorscheme hybrid
 
-" }
-" Plugin: Tabular {
-" 
-" nmap <Leader>a& :Tabularize /&<CR>
-" vmap <Leader>a& :Tabularize /&<CR>
-" nmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
-" vmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
-" nmap <Leader>a=> :Tabularize /=><CR>
-" vmap <Leader>a=> :Tabularize /=><CR>
-" nmap <Leader>a: :Tabularize /:<CR>
-" vmap <Leader>a: :Tabularize /:<CR>
-" nmap <Leader>a:: :Tabularize /:\zs<CR>
-" vmap <Leader>a:: :Tabularize /:\zs<CR>
-" nmap <Leader>a, :Tabularize /,<CR>
-" vmap <Leader>a, :Tabularize /,<CR>
-" nmap <Leader>a,, :Tabularize /,\zs<CR>
-" vmap <Leader>a,, :Tabularize /,\zs<CR>
-" nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-" vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-" }
-" Plugin: Startify {
-"" Cabecera y pie:
+function! ToggleSchema()
+    if "dark" == &background
+        set background=light
+        colorscheme PaperColor
+        set background=light
+    else
+        set background=dark
+        colorscheme hybrid
+        set background=dark
+    endif
+endfunction
+nnoremap <F4> :call ToggleSchema()<CR>
 
-function! s:filter_header(lines) abort
-    let longest_line   = max(map(copy(a:lines), 'strwidth(v:val)'))
-    let centered_lines = map(copy(a:lines),
-                \ 'repeat(" ", (&columns / 2) - (longest_line / 2)) . v:val')
-    return centered_lines
+function! FixColorscheme() " {
+    "hi! clear SpellBad
+    hi! SpellBad cterm=underline,bold ctermfg=none ctermbg=none
+
+    hi! Visual ctermfg=240 ctermbg=250 guifg=white guibg=white
+    
+    " Transparent background
+    hi! Normal ctermbg=none
+    " Match pairing http://stackoverflow.com/questions/10746750/set-vim-bracket-highlighting-colors
+    hi! MatchParen cterm=bold ctermbg=none ctermfg=magenta
 endfunction
 
-let g:startify_custom_header = s:filter_header(map(split(system('fortune | cowsay -f $(ls /usr/local/Cellar/cowsay/3.04/share/cows/*.cow | gshuf -n1) | lolcat'), '\n'), '"   ". v:val')) 
-
-let g:startify_bookmarks = [ '~/.vimrc.local','~/.vimrc.bundles.local' ]
-autocmd User Startified setlocal cursorline
-let g:startify_skiplist = [
-            \ 'COMMIT_EDITMSG',
-            \ '.vimrc.local',
-            \ '.vimrc.bundles.local'
-            \ ]
-"" Tema
-highlight StartifyBracket ctermfg=240
-highlight StartifyFooter  ctermfg=114
-highlight StartifyHeader  ctermfg=114
-highlight StartifyNumber  ctermfg=215
-highlight StartifyPath    ctermfg=245
-highlight StartifySlash   ctermfg=240
-highlight StartifySpecial ctermfg=240
-
 " }
-" Plugin: NerdCommenter {
 
-let g:NERDCustomDelimiters = {
-            \ 'rest': { 'left': '# ' },
-            \ }
+"}
+" Plugin: coc {
+"
+" if hidden is not set, TextEdit might fail.
+set hidden
 
+" Some servers have issues with backup files, see #649
+"set nobackup
+"set nowritebackup
+
+" Better display for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+"nmap <silent> [g <Plug>(coc-diagnostic-prev)
+"nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> <F2> <Plug>(coc-diagnostic-next)
+nmap <silent> <S-F2> <Plug>(coc-diagnostic-prev)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+"nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  autocmd FileType typescript,json,typescript.tsx,css,scss setl foldmethod=syntax
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Create mappings for function text object, requires document symbols feature of languageserver.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Use <TAB> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+nmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <TAB> <Plug>(coc-range-select)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Using CocList
+" Show all diagnostics
+"nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+"nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+"nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+"nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+"nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+"nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+"nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+"nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " }
-" Plugin: Ctrlp {
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-" }
-" Plugin: Airline {
-let g:airline#extensions#syntastic#enabled = 0
-let g:airline#extensions#tagbar#enabled = 0
-let g:airline#extensions#hunks#enabled = 0
-let g:airline#extensions#bufferline#enabled = 0
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-
-let g:airline_theme='badwolf'
-let g:airline_powerline_fonts = 1
-
-
-let g:indent_guides_enable_on_vim_startup = 0
-
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-let g:airline_symbols.space = "\ua0"
-let g:airline_detect_spell=0
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
-
-
-call airline#parts#define_raw('linenr', '%l')
-call airline#parts#define_raw('linet', '%L')
-call airline#parts#define_accent('linenr', 'bold')
-call airline#parts#define_accent('linet', 'bold')
-"let g:airline_section_a = airline#section#create('')
-let g:airline_section_b = airline#section#create('')
-let g:airline_section_y = airline#section#create('')
-let g:airline_section_z = airline#section#create(['%3p%% ', 'linenr', '/', 'linet', ':%c'])
-" }
-" ColorScheme {
-colorscheme hybrid
-set background=dark
-hi clear SpellBad
-hi SpellBad cterm=underline,bold ctermfg=red
-" Transparent background
-hi Normal ctermbg=none
-hi Visual term=reverse cterm=reverse guibg=Grey
-
-set cursorline
-" }
-" Per file configuration {
-" GIT {
-au FileType gitcommit set fileencoding=utf8
-set diffopt+=vertical
-set scrolloff=10
-" }
-" Tex{
-
-" }
-" Vimwiki {
-" See http://stackoverflow.com/questions/1313171/vim-combining-autocmd
-augroup VimwikiAutowrite
-    au FileType vimwiki set nobackup
-    au FileType vimwiki set nowritebackup
-    au FileType vimwiki set noswapfile
-    au FileType vimwiki set autowrite
-    au FocusLost *.wiki :w
-    au FileType vimwiki set autowrite
-augroup END
-
-let wikiroot = '~/.dropbox/Dropbox/'
-let wiki = {}
-let wiki.path = wikiroot . '/wiki/'
-let wiki.path_html = wikiroot . '/wiki_html/'
-let wiki.auto_export = 1
-let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'sql' : 'sql'}
-let wiki.template_path = wiki.path  . '/template/'
+" Plugin: Vimwiki {
+"
+let wikiroot              = '~/.dropbox_data/Dropbox/'
+let wiki                  = {}
+let wiki.path             = wikiroot . '/wiki/'
+let wiki.path_html        = wikiroot . '/wiki_html/'
+let wiki.auto_export      = 1
+let wiki.nested_syntaxes  = {'python': 'python', 'c++': 'cpp', 'sql' : 'sql'}
+let wiki.template_path    = wiki.path  . '/template/'
 let wiki.template_default = 'default'
-let wiki.template_ext = '.htm'
+let wiki.template_ext     = '.htm'
+let wiki.auto_toc         = 1
 
 let g:vimwiki_list = [ wiki ]
 let g:vimwiki_rxTableSep = '|'
 let g:vimwiki_folding = 'expr'
+
+augroup VimwikiAutowrite
+    au FileType vimwiki set nobackup
+    au FileType vimwiki set nowritebackup
+    au FileType vimwiki set noswapfile
+    au FileType vimwiki syntax on
+    au FileType vimwiki set autowrite
+    au FileType vimwiki set spell
+    au FileType vimwiki hi clear SpellBad
+    au FileType vimwiki hi SpellBad cterm=underline ctermfg=red
+    au FileType vimwiki hi Visual term=reverse cterm=reverse guibg=Grey
+    au FocusLost *.wiki :w
+    au FileType vimwiki set expandtab
+    au FileType vimwiki set tabstop=2
+    au FileType vimwiki set softtabstop=2
+    au FileType vimwiki set shiftwidth=2
+    au FileType vimwiki setlocal number
+    au FileType vimwiki setlocal relativenumber
+    au FileType vimwiki AirlineRefresh
+    au FileType * call FixColorscheme()
+augroup END
+
+" }
+" Plugin: FZF {
+nn <c-p> :Files<CR>
+
 "}
+" Plugin: NerdCommenter {
 
-" Markdown {
-au FileType markdown set wrap
-au FileType markdown set textwidth=80
-au FileType markdown noremap <F5> :PreviewMarkdown<CR>
-" }
-" JavaScript {
-au FileType js set shiftwidth=2
-au FileType typescript set shiftwidth=4
-" }
-au BufRead,BufNewFile .vrapperrc setfiletype vim
-" }
-"Clipboard configuration {
-set clipboard=unnamed,unnamedplus
-imap <A-p> <Esc>p
-"}
-" General {
-
-set langmenu=en_US
-set virtualedit=onemore             " Allow for cursor beyond last character
-set history=10000                   " Store a ton of history (default is 20)
-set spell                           " Spell checking on
-set spelllang=es,en
-set hidden                          " Allow buffer switching without saving
-set iskeyword-=.                    " '.' is an end of word designator
-set iskeyword-=#                    " '#' is an end of word designator
-set iskeyword-=-                    " '-' is an end of word designator
-set splitright
-set splitbelow
-set autochdir
-
-set mouse=                          " Disable mouse
-set shiftwidth=4                    " Use indents of 4 spaces
-set expandtab                       " Tabs are spaces, not tabs
-set tabstop=4                       " An indentation every four columns
-set nolist                          " Hide not printable characters
-set softtabstop=4                   " Let backspace delete indent
-set nopaste
-set nonumber
-set ignorecase
-
-set fileencodings=ucs-bom,utf8,prc
-
-" Undo {
-set undodir=~/.nvimundo
-set undofile
-set undolevels=1000 "maximum number of changes that can be undone
-set undoreload=10000 "maximum number lines to save for undo on a buffer reload
-" }
-" Maps útiles {
-nnoremap K i<CR><Esc>
-
-" Navegación {
-set pastetoggle=<F12>
-imap jj <Esc><Esc><Esc>
-imap jw <Esc>:w<CR>a
-imap jk <Esc>:w<CR>
-imap kj <Esc>:w<CR>
-map gs :write<CR>
-autocmd FileType typescript nnoremap <buffer> <C-]> :TSDef<CR>
-autocmd FileType typescriptreact nnoremap <buffer> <C-]> :TSDef<CR>
+let g:NERDCustomDelimiters = {
+  \ 'rest': { 'left': '# ' },
+  \ 'puml': { 'left': "' " },
+\ }
 
 " }
-" Resize options {
-nnoremap <silent> <Leader>eh :exe "resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> <Leader>rh :exe "resize " . (winheight(0) * 2/3)<CR>
-nnoremap <silent> <Leader>ev :exe "vertical resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> <Leader>rv :exe "vertical resize " . (winheight(0) * 2/3)<CR>
-" }
-"Ejecuta el archivo actual con <leader>r {
-nnoremap <leader>r :!%:p<CR>
-command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
-
-" }
-
-" }
+"
+set ic           " allows search to be case insensitive until a upper case appear
+set smartcase           " allows search to be case insensitive until a upper case appear

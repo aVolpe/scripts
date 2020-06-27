@@ -40,13 +40,13 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(zsh-syntax-highlighting alias-tips mvn git docker docker-compose zsh-autosuggestions)
+plugins=(zsh-syntax-highlighting alias-tips mvn git docker docker-compose zsh-autosuggestions gpg-agent)
 
 fpath=($HOME/.oh-my-zsh/custom/autocomplete/zsh-completions-master/src/ $fpath)
 
 source $ZSH/oh-my-zsh.sh
 
-export EDITOR=vim
+export EDITOR=nvim
 
 # Customize to your needs...
 
@@ -72,21 +72,34 @@ export FZF_DEFAULT_COMMAND='ag -l -g ""'
 export ANDROID_HOME=~/Library/Android/sdk/
 
 
-export PATH="/Users/arturovolpe/.gem/ruby/2.4.0:/usr/local/bin:$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+#export PATH="/Users/arturovolpe/.gem/ruby/2.4.0:/usr/local/bin:$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=247
 
-export LC_ALL=es_ES.UTF-8
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/arturovolpe/.programs/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/arturovolpe/.programs/google-cloud-sdk/path.zsh.inc'; fi
+#if [ -f '/Users/arturovolpe/.programs/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/arturovolpe/.programs/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/arturovolpe/.programs/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/arturovolpe/.programs/google-cloud-sdk/completion.zsh.inc'; fi
+#if [ -f '/Users/arturovolpe/.programs/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/arturovolpe/.programs/google-cloud-sdk/completion.zsh.inc'; fi
 
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home
 
 export PATH="${ANDROID_HOME}emulator/:${ANDROID_HOME}platform-tools/:/usr/local/sbin:/usr/local/bin:$HOME/.yarn/bin:$HOME/programs/flutter/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+test -e "${HOME}/programs/forgit/forgit.plugin.zsh" && source "${HOME}/programs/forgit/forgit.plugin.zsh"
+
 
 HISTCONTROL=ignoreboth
+
+source /Users/arturovolpe/Library/Preferences/org.dystroy.broot/launcher/bash/br
+
+#export LC_ALL=en_US
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export LC_COLLATE=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+export LC_MESSAGES=en_US.UTF-8
+export LC_MONETARY=en_US.UTF-8
+export LC_NUMERIC=en_US.UTF-8
+export LC_TIME=en_US.UTF-8
