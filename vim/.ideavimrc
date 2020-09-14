@@ -1,0 +1,31 @@
+set surround
+set easymotion
+set commentary
+
+set incsearch
+set scrolloff=5
+set clipboard+=unnamed
+
+set ignorecase
+
+
+" Let's make escape better, together.
+inoremap jk <Esc>
+inoremap JK <Esc>
+inoremap Jk <Esc>
+inoremap jK <Esc>
+inoremap jj <Esc>
+noremap K i<CR><Esc>
+
+" Previous method.
+nnoremap [m :action MethodUp<cr>
+" Next method.
+nnoremap ]m :action MethodDown<cr>"]
+
+let mapleader = " "
+
+
+xmap <leader>c  <Plug>(CommentMotionV)
+nmap <leader>c  <Plug>(CommentMotionV)
+omap <leader>c  <Plug>(CommentMotionV)
+nmap <leader>c<space> <Plug>(CommentLine)

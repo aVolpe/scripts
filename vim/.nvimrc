@@ -8,6 +8,9 @@ let mapleader = " "          " Space the new leader
 noremap K i<CR><Esc>
 map <leader>dt :%s/\s\+$//g<CR>:w<CR>
 set foldlevel=20
+
+set undodir=~/.vimundo/
+set undofile
 "
 "
 " Plugins config {
