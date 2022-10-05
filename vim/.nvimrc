@@ -6,7 +6,12 @@ let g:python3_host_prog = '/usr/local/bin/python3'
 
 let mapleader = " "          " Space the new leader
 noremap K i<CR><Esc>
+imap jj <Esc>
+imap jk <Esc>
 map <leader>dt :%s/\s\+$//g<CR>:w<CR>
+" Map yo to co, for example to togle lines use 'con'
+" cos -> spell, con -> number, col -> list, cox -> cursor column and line
+nmap co yo
 set foldlevel=20
 
 set undodir=~/.vimundo/
@@ -24,6 +29,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript', {'for': 'typescript.tsx'}
+Plug 'udalov/kotlin-vim', {'for': 'kotlin.kt' }
 Plug 'w0ng/vim-hybrid'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'vimwiki/vimwiki'
@@ -32,6 +38,13 @@ Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdcommenter'
 Plug 'aklt/plantuml-syntax'
 Plug 'chrisbra/csv.vim'
+Plug 'junegunn/vim-easy-align'
+
+Plug 'airblade/vim-gitgutter'
+Plug 'onsails/Lspkind-nvim'
+Plug 'glepnir/galaxyline.nvim', has('gui_vimr') ? { 'on': []} : {'branch': 'main'}
+Plug 'kyazdani42/nvim-web-devicons', has('gui_vimr') ? { 'on': []} : {'branch': 'master'} " lua
+Plug 'ryanoasis/vim-devicons', has('gui_vimr') ? { 'on': []} : {'branch': 'master'} " vimscript
 
 call plug#end()
 " }
@@ -40,6 +53,7 @@ set smartcase           " allows search to be case insensitive until a upper cas
 set scrolloff=3         " always show 3 lines under the cursor
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab " use a tab as four spaces 
 set clipboard=unnamed
+set cursorline
 
 set fileencodings=ucs-bom,utf8,prc
 set spell
@@ -48,12 +62,18 @@ set nospell
 set history=10000
 set mouse=                      " Disable mouse
 
+hi Visual term=reverse cterm=reverse guibg=#333333
+
+" Use <Sb> to bold the selection on markdown files
+autocmd BufRead,BufNewFile   *.md let b:surround_{char2nr('b')} = "**\r**"
 
 "}
 " Theme {
 set background=dark
 set termguicolors
 colorscheme hybrid
+highlight CursorLine ctermbg=220 guibg=#474747
+
 
 function! ToggleSchema()
     if "dark" == &background
@@ -72,7 +92,7 @@ function! FixColorscheme() " {
     "hi! clear SpellBad
     hi! SpellBad cterm=underline,bold ctermfg=none ctermbg=none
 
-    hi! Visual ctermfg=240 ctermbg=250 guifg=white guibg=white
+    hi Visual term=reverse cterm=reverse guibg=#333333
     
     " Transparent background
     hi! Normal ctermbg=none
@@ -105,12 +125,13 @@ set shortmess+=c
 set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -120,11 +141,15 @@ endfunction
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Or use `complete_info` if your vim support it, like:
-" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 " Use `[g` and `]g` to navigate diagnostics
 "nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -207,7 +232,7 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " Show commands
 "nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document
-"nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols
 "nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
@@ -251,7 +276,7 @@ augroup VimwikiAutowrite
     au FileType vimwiki set shiftwidth=2
     au FileType vimwiki setlocal number
     au FileType vimwiki setlocal relativenumber
-    au FileType vimwiki AirlineRefresh
+    "au FileType vimwiki AirlineRefresh
     au FileType * call FixColorscheme()
 augroup END
 
@@ -268,6 +293,64 @@ let g:NERDCustomDelimiters = {
 \ }
 
 " }
+" Plugin: vim-easy-align {
+"" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+"" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+" }
+
 "
+"
+"
+" Load lua config
+lua require('lspkind')
+if !has("gui_vimr") 
+    lua require('statusline')
+endif
+
 set ic           " allows search to be case insensitive until a upper case appear
 set smartcase           " allows search to be case insensitive until a upper case appear
+
+function! FormatJSON()
+    :%!jq
+    :set filetype=json
+endfunction
+nmap =j :call FormatJSON()<CR>
+
+
+function! CleanXML()
+    :%s/\\"/"/g
+    :s/\\n/\r/g
+endfunction
+nmap =x :call DoPrettyXML()<CR>
+nmap =q :call CleanXML()<CR>
+
+function! DoPrettyXML()
+  set ft=xml
+  " delete the xml header if it exists. This will
+  " permit us to surround the document with fake tags
+  " without creating invalid xml.
+  1s/<?xml .*?>//e
+  " insert fake tags around the entire document.
+  " This will permit us to pretty-format excerpts of
+  " XML that may contain multiple top-level elements.
+  0put ='<PrettyXML>'
+  $put ='</PrettyXML>'
+  "silent %!xmllint --format -
+  "%!xmllint --format -
+  norm! gg
+  norm! =G
+  " xmllint will insert an <?xml?> header. it's easy enough to delete
+  " if you don't want it.
+  " delete the fake tags
+  2d
+  $d
+  " restore the 'normal' indentation, which is one extra level
+  " too deep due to the extra tags we wrapped around the document.
+  silent %<
+   "back to home
+  1
+endfunction
+command! PrettyXML call DoPrettyXML()
