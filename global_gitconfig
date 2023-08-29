@@ -1,0 +1,33 @@
+# This is Git's per-user configuration file.
+[user]
+	name = Arturo Volpe
+	email = arturovolpe@gmail.com
+[alias]
+	wdiff = diff
+	git = !exec git
+	quick-stats = ! /usr/local/bin/git-quick-stats
+	root = rev-parse --show-toplevel
+[diff]
+	renameLimit = 19493
+[core]
+	autocrlf = false
+	excludesfile = /Users/arturovolpe/.gitignore_global
+	editor = nvim
+[commit]
+	gpgsign = true
+[tag]
+	forceSignAnnotated = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[protocol]
+	version = 2
+[pull]
+	rebase = false
+[gpg]
+	program = gpg
+[url "git@github.com:"]
+	insteadOf = http://github.com/
+	insteadOf = https://github.com/
