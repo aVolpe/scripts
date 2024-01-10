@@ -1,5 +1,8 @@
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
-language en_US
+
+if !exists("g:gui_vimr") 
+    language en_US
+endif
 
 let g:python2_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/usr/local/bin/python3'
@@ -42,9 +45,9 @@ Plug 'junegunn/vim-easy-align'
 
 Plug 'airblade/vim-gitgutter'
 Plug 'onsails/Lspkind-nvim'
-Plug 'glepnir/galaxyline.nvim', has('gui_vimr') ? { 'on': []} : {'branch': 'main'}
-Plug 'kyazdani42/nvim-web-devicons', has('gui_vimr') ? { 'on': []} : {'branch': 'master'} " lua
-Plug 'ryanoasis/vim-devicons', has('gui_vimr') ? { 'on': []} : {'branch': 'master'} " vimscript
+Plug 'glepnir/galaxyline.nvim', {'branch': 'main'}
+Plug 'kyazdani42/nvim-web-devicons', {'branch': 'master'} " lua
+Plug 'ryanoasis/vim-devicons', {'branch': 'master'} " vimscript
 
 call plug#end()
 " }
@@ -305,10 +308,9 @@ nmap ga <Plug>(EasyAlign)
 "
 "
 " Load lua config
-"lua require('lspkind')
-"if !has("gui_vimr") 
-    "lua require('statusline')
-"endif
+lua require('lspkind')
+
+lua require('statusline')
 
 set ic           " allows search to be case insensitive until a upper case appear
 set smartcase           " allows search to be case insensitive until a upper case appear
@@ -430,5 +432,13 @@ augroup git_commit_config
   au FileType gitcommit setlocal textwidth=80
   au FileType gitcommit setlocal spell
   au FileType gitcommit let g:editorconfig = v:false
+augroup END
+" }
+"
+" Configure markdown {
+augroup markdown_config
+  au!
+  " The important one is guifg
+  au FileType markdown hi SpellBad cterm=underline gui=underline guisp=#fb5e2a guifg=#E12222
 augroup END
 " }
