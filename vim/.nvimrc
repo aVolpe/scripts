@@ -33,8 +33,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript', {'for': 'typescript.tsx'}
 Plug 'udalov/kotlin-vim', {'for': 'kotlin.kt' }
-Plug 'w0ng/vim-hybrid'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'folke/tokyonight.nvim'
 Plug 'vimwiki/vimwiki'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
@@ -45,9 +45,12 @@ Plug 'junegunn/vim-easy-align'
 
 Plug 'airblade/vim-gitgutter'
 Plug 'onsails/Lspkind-nvim'
-Plug 'glepnir/galaxyline.nvim', {'branch': 'main'}
-Plug 'kyazdani42/nvim-web-devicons', {'branch': 'master'} " lua
-Plug 'ryanoasis/vim-devicons', {'branch': 'master'} " vimscript
+"Plug 'github/copilot.vim'
+Plug 'beauwilliams/statusline.lua'
+Plug 'nvim-lua/lsp-status.nvim'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'drewipson/glowing-vim-markdown-preview'
 
 call plug#end()
 " }
@@ -74,19 +77,22 @@ autocmd BufRead,BufNewFile   *.md let b:surround_{char2nr('b')} = "**\r**"
 " Theme {
 set background=dark
 set termguicolors
-colorscheme hybrid
+colorscheme tokyonight-night
 highlight CursorLine ctermbg=220 guibg=#474747
 
 
 function! ToggleSchema()
     if "dark" == &background
         set background=light
-        colorscheme PaperColor
+        colorscheme tokyonight-day
         set background=light
+        lua require('lualine').setup({ options = { theme = 'onelight' } })
+
     else
         set background=dark
-        colorscheme hybrid
+        colorscheme tokyonight-night
         set background=dark
+        lua require('lualine').setup({ options = { theme = 'onedark' } })
     endif
 endfunction
 nnoremap <F4> :call ToggleSchema()<CR>
@@ -167,7 +173,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window
-"nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> <F3> :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -224,8 +230,6 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " use `:OR` for organize import of current buffer
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
-" Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Using CocList
 " Show all diagnostics
@@ -308,9 +312,19 @@ nmap ga <Plug>(EasyAlign)
 "
 "
 " Load lua config
-lua require('lspkind')
 
-lua require('statusline')
+lua << EOF
+require('lspkind')
+require('lualine').setup({
+    options = { theme = 'onedark' }
+})
+-- require('statusline').setup({
+--   lsp_diagnostics = true,      -- Enable Native LSP diagnostics (Default: true)
+--   ale_diagnostics = false,     -- Enable ALE diagnostics (Default: false)
+--   match_colorscheme = true
+-- })
+EOF
+
 
 set ic           " allows search to be case insensitive until a upper case appear
 set smartcase           " allows search to be case insensitive until a upper case appear
